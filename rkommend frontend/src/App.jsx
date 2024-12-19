@@ -1,5 +1,8 @@
 import React from "react";
 import "./landingPage.css";
+import EastRoundedIcon from "@mui/icons-material/EastRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
 const LandingPage = () => {
   return (
@@ -38,11 +41,11 @@ const LandingPage = () => {
         <div className="main-body__btns">
           <button className="main-body__btns--GetStarted btn--blue">
             Get started
-            <span className="material-symbols-rounded"> east </span>
+            <EastRoundedIcon />{" "}
           </button>
           <button className="main-body__btns--signin">
             Sign in
-            <span className="material-symbols-rounded"> east </span>
+            <EastRoundedIcon />{" "}
           </button>
         </div>
 
@@ -60,6 +63,24 @@ const LandingPage = () => {
               <div id="1">1</div>
               <div id="2">2</div>
               <div id="3">3</div>
+            </div>
+          </div>
+
+          <div className="howitworkscard">
+            <div className="selectUni">
+              <h3>Select your university</h3>
+              <label htmlFor="uniinput">University</label>
+              <div className="inputcover">
+                <SearchRoundedIcon />
+                <input
+                  type="text"
+                  name="uniinput"
+                  id=""
+                  className="uniinput"
+                  placeholder="Search for your university"
+                />
+                <KeyboardArrowDownRoundedIcon />
+              </div>
             </div>
           </div>
 
