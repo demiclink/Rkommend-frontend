@@ -217,3 +217,12 @@ body {
   background: none;
   border: none;
 }
+
+.uniinput:focus {
+  border: none;
+  outline: none;
+}
+
+.uniinput:focus ~ .inputcover {
+  box-shadow: 0px 0px 5px #0a66c2;
+}
