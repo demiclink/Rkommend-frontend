@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Footer from "./components/footer";
 import "./landingPage.css";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
@@ -207,6 +208,30 @@ const LandingPage = () => {
         src="Group.png"
         alt="right"
       />
+
+      <div className="secbody ">
+        <div className="secbody__imagecontainer">
+          <img className="secbody__image" src="Object 1.png" alt="" />
+        </div>
+        <div className="secbody__description">
+          <img
+            className="secbody__description--image"
+            src="Frame 43142.png"
+            alt=""
+          />
+          <p className="secbody__description--text">
+            <span className="recreqs">5 recommendation requests</span> <br />{" "}
+            for <br /> <span className="recprice">NGN10,000</span>
+          </p>
+          <div className="secbody__description--btn">
+            <button className="secbody__description--btn btn--blue">
+              Get Started
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
     </div>
   );
 };
