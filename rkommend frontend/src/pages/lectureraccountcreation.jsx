@@ -7,14 +7,13 @@ import "../css files/accountType.css";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import userVector from "/R-User.png";
 import envelopeVector from "/Wrap.png";
-import calendarVector from "/calendarvector.png";
 
-const StudentAccount = () => {
+const LecturerAccount = () => {
   const [page, setPage] = useState(1);
   const [recordPresent, setRecordPresent] = useState("");
 
   const nextPage = () => {
-    if (page < 3) {
+    if (page < 2) {
       setPage(page + 1);
     }
   };
@@ -42,7 +41,7 @@ const StudentAccount = () => {
                   className="userVector"
                   image={userVector}
                   progresscounter={"1"}
-                  markerWidth={`calc(${100 / 3}%)`}
+                  markerWidth={`calc(${100 / 2}%)`}
                 />
               )}
             </div>
@@ -59,23 +58,6 @@ const StudentAccount = () => {
                   className="envelopeVector"
                   image={envelopeVector}
                   progresscounter={"2"}
-                  markerWidth={`calc(${(2 * 100) / 3}%)`}
-                />
-              )}
-            </div>
-
-            <div
-              className={`vectordiv__slide-in ${
-                page === 3
-                  ? "vectordiv__slide-in-active"
-                  : "vectordiv__slide-out"
-              }`}
-            >
-              {page === 3 && (
-                <VectorDiv
-                  className="calendarVector"
-                  image={calendarVector}
-                  progresscounter={"3"}
                   markerWidth={`calc(${100}%)`}
                 />
               )}
@@ -134,12 +116,33 @@ const StudentAccount = () => {
                   </div>
 
                   <div className="inputdiv emaildiv">
-                    <label for="email">Email</label>
+                    <label for="email">Official email address</label>
                     <input
                       type="email"
                       id="email"
                       name="email"
-                      placeholder="Enter your email"
+                      placeholder="Enter your official email address"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="institutionanddepartment">
+                  <div className="inputdiv institutiondiv">
+                    <label for="institution">Select your institution</label>
+
+                    <select name="institution" id="institution" required>
+                      <option value="">Select your institution</option>
+                    </select>
+                  </div>
+
+                  <div className="inputdiv departmentdiv">
+                    <label for="department">Department</label>
+                    <input
+                      type="text"
+                      id="department"
+                      name="department"
+                      placeholder="Enter your department"
                       required
                     />
                   </div>
@@ -180,6 +183,7 @@ const StudentAccount = () => {
                   className="formsubmit btn--blue"
                 >
                   Create account
+                  <EastRoundedIcon />
                 </button>
               </form>
             </div>
@@ -217,40 +221,6 @@ const StudentAccount = () => {
               </form>
             </div>
           )}
-
-          {page === 3 && (
-            <div className="verifyEmail form-container">
-              <div className="signupForm__headerdiv">
-                <h1 className="form-title">Add your education record</h1>
-                <button class="form-secbtn">Skip for now</button>
-              </div>
-
-              <form>
-                <div className="inputdiv verifyemaildiv">
-                  <label for="verify-email">
-                    Enter the verification code send to{" "}
-                    <span>useremail@mail.com</span>{" "}
-                  </label>
-                  <input
-                    type="email"
-                    id="verify-email"
-                    name="verify-email"
-                    placeholder="Enter verification code"
-                    required
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="verifyemailbtn formsubmit btn--blue"
-                  onClick={nextPage}
-                >
-                  Verify email
-                  <EastRoundedIcon />
-                </button>
-              </form>
-            </div>
-          )}
         </div>
         <Footer className="footer" />
       </div>
@@ -258,4 +228,4 @@ const StudentAccount = () => {
   );
 };
 
-export default StudentAccount;
+export default LecturerAccount;

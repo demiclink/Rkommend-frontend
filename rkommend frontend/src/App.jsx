@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import AccountType from "./pages/accountType";
 import { Routes, Route } from "react-router-dom";
 import Studentaccountcreation from "./pages/studentaccountcreation";
+import Lectureraccountcreation from "./pages/lectureraccountcreation";
 
 const App = () => {
   return (
@@ -13,6 +14,10 @@ const App = () => {
         <Route
           path="/createaccount-student"
           element={<Studentaccountcreation />}
+        />
+        <Route
+          path="/createaccount-lecturer"
+          element={<Lectureraccountcreation />}
         />
       </Routes>
     </main>

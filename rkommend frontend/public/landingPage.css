@@ -28,6 +28,7 @@ body {
   right: 64px;
   gap: 8px;
   display: flex;
+  text-wrap: nowrap;
 }
 
 .header__btns--signin,
@@ -43,6 +44,7 @@ body {
 .header__btns--signin {
   color: #1b1b1b;
   font-size: 16px;
+  text-wrap: nowrap;
 }
 
 .btn--blue {
