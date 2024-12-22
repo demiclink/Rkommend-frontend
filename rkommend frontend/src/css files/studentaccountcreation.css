@@ -1,0 +1,158 @@
+.main-body {
+  height: auto;
+}
+
+.mainbody__container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  /* align-items: center; */
+  padding: 132px 64px;
+  box-sizing: border-box;
+}
+
+.vectorcontainer {
+  height: 588px;
+  width: 528px;
+  background-color: #deeaf7;
+  border-radius: 12px;
+  /* margin-top: 100px; */
+}
+
+.vectorcontainer__header {
+  height: 112px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.headertext {
+  font-weight: 700;
+  size: 24px;
+  color: #0a66c2;
+}
+
+.progresscounter {
+  width: 40px;
+  padding: 4px 16px;
+  box-sizing: border-box;
+  background-color: #0a66c2;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #deeaf7;
+}
+
+.vectorcontainer__progress {
+  width: 100%;
+  height: 4px;
+  background-color: #aeceec;
+  position: relative;
+}
+
+.vectorcontainer__progress--marker {
+  position: absolute;
+  height: 100%;
+  width: calc(100% / 3);
+  background-color: #0a66c2;
+}
+
+.vectorcontainer__imgdiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* transform: translate(10px, -10px); */
+  width: 100%;
+  height: calc(100% - 116px);
+}
+
+.vectorcontainer__img {
+  height: 400px;
+  width: 342.62px;
+}
+
+.form-container {
+  width: 100%;
+  /* margin: auto; */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.form-subtitle {
+  color: gray;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.inputdiv {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  grid-column: span 1; /* Label takes one column */
+  font-weight: bold;
+}
+
+input,
+select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.password-note {
+  display: block;
+  font-size: 12px;
+  color: red;
+  margin-top: -10px;
+}
+
+.password-note span {
+  color: red;
+  font-weight: bold;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  padding: 0 64px;
+  justify-content: space-between;
+  align-items: center;
+}
