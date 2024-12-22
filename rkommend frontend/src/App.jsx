@@ -4,6 +4,7 @@ import AccountType from "./pages/accountType";
 import { Routes, Route } from "react-router-dom";
 import Studentaccountcreation from "./pages/studentaccountcreation";
 import Lectureraccountcreation from "./pages/lectureraccountcreation";
+import Signintype from "./pages/signinType";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           path="/createaccount-lecturer"
           element={<Lectureraccountcreation />}
         />
+        <Route path="/signinType" element={<Signintype />} />
       </Routes>
     </main>
   );
