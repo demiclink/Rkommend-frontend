@@ -1,0 +1,68 @@
+.mainbody__container {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+.signinpicturediv {
+  padding: 64px;
+  background-color: #deeaf7;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 64px;
+}
+
+.signinpicturediv__header h1 {
+  font-size: 40px;
+  font-weight: 700;
+  color: #0a66c2;
+  margin: 0;
+}
+
+.signinFormHeader {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.signin__img {
+  width: 238.73px;
+  height: 240px;
+}
+
+.signinForm__div {
+  box-sizing: border-box;
+  padding: 64px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  width: 528px;
+  /* height: 476px; */
+  gap: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.signinForm__emaildiv label,
+.signinForm__passworddiv label {
+  size: 16px;
+  font-weight: 400;
+}
+
+.signinForm__btn {
+  width: 131px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.signinForm__emaildiv,
+.signinForm__passworddiv {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import "../css files/studentaccountcreation.css";
+import "../css files/accountcreation.css";
 
 export const VectorDiv = ({ image, progresscounter, markerWidth }) => {
   return (

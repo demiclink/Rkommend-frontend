@@ -5,6 +5,8 @@ import { Routes, Route } from "react-router-dom";
 import Studentaccountcreation from "./pages/studentaccountcreation";
 import Lectureraccountcreation from "./pages/lectureraccountcreation";
 import Signintype from "./pages/signinType";
+import Lecturersignin from "./pages/lecturersignin";
+import Studentsignin from "./pages/studentsignin";
 
 const App = () => {
   return (
@@ -21,6 +23,8 @@ const App = () => {
           element={<Lectureraccountcreation />}
         />
         <Route path="/signinType" element={<Signintype />} />
+        <Route path="/signin-lecturer" element={<Lecturersignin />} />
+        <Route path="/signin-student" element={<Studentsignin />} />
       </Routes>
     </main>
   );
