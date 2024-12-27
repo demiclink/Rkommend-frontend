@@ -22,7 +22,7 @@
 .vectordiv__slide-in {
   opacity: 0;
   transform: translateX(-100%); /* Start off-screen */
-  transition: all 0.6s ease; /* Controls the transition speed and smoothness */
+  transition: all 0.6s ease-in-out; /* Controls the transition speed and smoothness */
 }
 
 /* Once active, it slides into view */
@@ -35,7 +35,7 @@
 .vectordiv__slide-out {
   opacity: 0;
   transform: translateX(100%); /* Slide off-screen to the right */
-  transition: all 0.6s ease;
+  transition: all 0.6s ease-in-out;
 }
 
 .vectorcontainer {

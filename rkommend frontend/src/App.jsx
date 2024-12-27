@@ -7,6 +7,7 @@ import Lectureraccountcreation from "./pages/lectureraccountcreation";
 import Signintype from "./pages/signinType";
 import Lecturersignin from "./pages/lecturersignin";
 import Studentsignin from "./pages/studentsignin";
+import SDHome from "./pages/studentsdashboard/sd-home";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/signinType" element={<Signintype />} />
         <Route path="/signin-lecturer" element={<Lecturersignin />} />
         <Route path="/signin-student" element={<Studentsignin />} />
+        <Route path="/home-student" element={<SDHome />} />
       </Routes>
     </main>
   );
