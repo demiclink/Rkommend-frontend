@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import SDheader from "../../components/sdheader";
 import "../../css files/sd-home.css";
-import LightModeSharpIcon from "@mui/icons-material/LightModeSharp";
+import {
+  LightModeSharp as LightModeSharpIcon,
+  KeyboardArrowDownRounded as KeyboardArrowDownRoundedIcon,
+  KeyboardArrowRightRounded as KeyboardArrowRightRoundedIcon,
+  SchoolRounded as SchoolRoundedIcon,
+  LogoutRounded as LogoutRoundedIcon,
+  EastRounded as EastRoundedIcon,
+  NotificationsNoneRounded as NotificationsNoneRoundedIcon,
+  AddPhotoAlternateOutlined as AddPhotoAlternateOutlinedIcon,
+  KeyboardArrowLeftOutlined as KeyboardArrowLeftOutlinedIcon,
+} from "@mui/icons-material";
+
 import { fetchMockData } from "../../mockData.js"; // Assuming this fetches the mock data
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
-import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import EastRoundedIcon from "@mui/icons-material/EastRounded";
-import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
-import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 
 const SDHome = () => {
   const [timeofday, setTimeOfDay] = useState("");
@@ -126,17 +131,83 @@ const SDHome = () => {
   //Userprofile
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
+  // Refs for editprofiledetails and blackoverlay
+  const editDetailsRef = useRef(null); // Ref for editprofiledetails
+  const overlayRef = useRef(null); // Ref for blackoverlay
+  const editEducationRecordRef = useRef(null);
+
+  // const educationRecordListDivRef = useRef(null);
+
   const toggleDetails = () => {
     setIsDetailsOpen(!isDetailsOpen);
+    if (educationRecordListDivRef.current) {
+      // educationRecordListDivRef.current.style.height = "100px";
+    }
   };
 
   //Edituserdetail
+  const [isEditDetailsOpen, setIsEditDetailsOpen] = useState(false);
+
+  const toggleEditDetails = () => {
+    setIsEditDetailsOpen(!isEditDetailsOpen);
+  };
+
+  //Editeducationrecorddetail
+  const [isEducationRecordOpen, setIsEducationRecordOpen] = useState(false);
+
+  const toggleEditEducationRecord = () => {
+    setIsEducationRecordOpen(!isEducationRecordOpen);
+  };
+
+  const handleOverlayClick = () => {
+    setIsEducationRecordOpen(false); // This will hide the education record and overlay
+  };
+
+  // Close editprofiledetails if click is on blackoverlay and outside editprofiledetails
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // If clicked on blackoverlay and not inside editprofiledetails
+      if (
+        overlayRef.current &&
+        overlayRef.current.contains(event.target) &&
+        editDetailsRef.current &&
+        !editDetailsRef.current.contains(event.target)
+      ) {
+        setIsEditDetailsOpen(false); // Close editprofiledetails
+      }
+    };
+
+    if (isEditDetailsOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isEditDetailsOpen]);
+
+  // Education record setting
+  const [educationRecordPage, setEducationRecordPage] = useState(1);
+  const [selectedRecord, setSelectedRecord] = useState(null);
+
+  const viewEducationRecordPage = (record) => {
+    if (educationRecordPage === 1) {
+      setEducationRecordPage(2);
+      setSelectedRecord(record);
+    }
+  };
 
   return (
     <div>
       {/* editprofiledetails */}
-      <div className="editprofiledetails">
-        <div>
+
+      <div
+        ref={editDetailsRef}
+        className={`editprofiledetails ${isEditDetailsOpen ? "active" : ""}`}
+      >
+        <div className="editprofiledetails--sec">
           <div className="editprofiledetails__header-rect">
             EDIT PROFILE DETAILS
           </div>
@@ -153,16 +224,21 @@ const SDHome = () => {
           <div className="editprofiledetails__form">
             <form>
               <div className="editprofiledetails__titleandfirstname">
-                <label htmlFor="title">Title</label>
-                <select name="title" id="title">
-                  <option value="prof">Prof</option>
-                </select>{" "}
-                <label htmlFor="firstname">Firstname</label>
-                <input
-                  id="firstname"
-                  type="text"
-                  placeholder={user && user.student.name}
-                />
+                <div>
+                  <label htmlFor="title">Title</label>
+                  <select name="title" id="title">
+                    <option value="prof">Prof</option>
+                  </select>{" "}
+                </div>
+
+                <div>
+                  <label htmlFor="firstname">Firstname</label>
+                  <input
+                    id="firstname"
+                    type="text"
+                    placeholder={user && user.student.name}
+                  />
+                </div>
               </div>
 
               <label htmlFor="lastname">Lastname</label>
@@ -181,10 +257,100 @@ const SDHome = () => {
             </form>
           </div>
         </div>
+        <div className="editprofiledetails__btns--div">
+          <button className="editprofiledetails__btns--save">
+            Save changes
+          </button>
+          <button className="editprofiledetails__btns--discard">
+            Discard changes
+          </button>
+        </div>
       </div>
 
       {/* blackoverlay */}
-      <div className="blackoverlay"></div>
+      {isEditDetailsOpen && (
+        <div
+          ref={overlayRef} // Ref for blackoverlay
+          className="blackoverlay"
+        ></div>
+      )}
+
+      {/* editeducationrecords */}
+      <div
+        ref={editEducationRecordRef}
+        className={`editeducationrecord ${
+          isEducationRecordOpen ? "active" : ""
+        }`}
+      >
+        <div className="editeducationrecord--sec">
+          <div className="editeducationrecord__header-rect">
+            EDIT EDUCATION RECORD
+          </div>
+          <div className="editeducationrecord__form">
+            <form>
+              <div>
+                <label htmlFor="institution" className="institution required">
+                  Institution
+                </label>
+                <select name="institution" id="institution">
+                  <option value="unilorin">Unilorin</option>
+                </select>{" "}
+              </div>
+
+              <div>
+                <label htmlFor="department">Department</label>
+                <input
+                  id="department"
+                  type="text"
+                  // placeholder={user && user.educationRecord}
+                />
+              </div>
+
+              <label htmlFor="matricnumb">Matriculation number</label>
+              <input type="text" name="matricnumb" id="matricnumb" />
+
+              <label htmlFor="grad">Year of graduation</label>
+              <input type="text" name="grad" id="grad" />
+
+              <label htmlFor="transcript">Transcript</label>
+              <input
+                type="file"
+                accept="image/*"
+                name="transcript"
+                id="transcript"
+              />
+
+              <label htmlFor="extracurr">
+                Extracurricular achievements/Political portfolio
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                name="extracurr"
+                id="extracurr"
+              />
+            </form>
+          </div>
+        </div>
+        <div className="editeducationrecord_btns--div">
+          <button className="editeducationrecord__btns--save">
+            Save changes
+          </button>
+          <button className="editeducationrecord__btns--discard">
+            Discard changes
+          </button>
+        </div>
+      </div>
+
+      {/* blackoverlay */}
+      {isEducationRecordOpen && (
+        <div
+          onClick={handleOverlayClick}
+          // ref={overlayRef}
+          className="blackoverlay"
+        ></div>
+      )}
+
       <SDheader className="SDheader" />
       <div className="sd-main-body">
         <div className="profilediv">
@@ -228,7 +394,7 @@ const SDHome = () => {
                   </div>
                 </div>
 
-                <button className="profilediv__btn">
+                <button className="profilediv__btn" onClick={toggleEditDetails}>
                   Edit details
                   <EastRoundedIcon />
                 </button>
@@ -236,41 +402,119 @@ const SDHome = () => {
             )}
           </div>
 
-          <div className="educationrecord">
-            <div className="educationrecord__header">
-              <p>EDUCATION RECORD</p>
-              <button className="createnew">Create new +</button>
+          {/* Education record list (page 1) */}
+          {educationRecordPage === 1 && (
+            <div className="educationrecord">
+              <div className="educationrecord__header">
+                <p>EDUCATION RECORD</p>
+                <Link to="/createeducationrecord" className="no-underline">
+                  <button className="createnew">Create new +</button>
+                </Link>
+              </div>
+              <div
+                className="educationrecord__listdiv"
+                // ref={educationRecordListDivRef}
+              >
+                {user &&
+                user.educationRecord &&
+                Array.isArray(user.educationRecord) ? (
+                  user.educationRecord.map((record) => (
+                    <ul key={record.id}>
+                      <div
+                        className="educationrecord__list"
+                        onClick={() => viewEducationRecordPage(record)}
+                      >
+                        <div>
+                          <div className="list__img">
+                            <SchoolRoundedIcon className="list__img--icon" />
+                          </div>
+                          <div className="list__unidetails">
+                            <div className="unidetails__name">
+                              {record.institution}
+                            </div>
+                            <div className="unidetails__department">
+                              {record.department}
+                            </div>
+                          </div>
+                        </div>
+                        <KeyboardArrowRightRoundedIcon />
+                      </div>
+                    </ul>
+                  ))
+                ) : (
+                  <p>No education records available</p>
+                )}
+              </div>
             </div>
-            <div className="educationrecord__listdiv">
-              {user &&
-              user.educationRecord &&
-              Array.isArray(user.educationRecord) ? (
-                user.educationRecord.map((record) => (
-                  <ul key={record.id}>
-                    <div className="educationrecord__list">
+          )}
+
+          {/* Education record details (page 2) */}
+          {educationRecordPage === 2 && (
+            <div className="educationrecord">
+              <div className="backandeditdiv">
+                <div
+                  onClick={() => setEducationRecordPage(1)}
+                  className="educationrecord--backbtn"
+                >
+                  <KeyboardArrowLeftOutlinedIcon />
+                  Back
+                </div>
+
+                <button className="editbtn" onClick={toggleEditEducationRecord}>
+                  EDIT
+                </button>
+              </div>
+
+              {selectedRecord ? (
+                <div className=" educationrecord__listdiv educationrecord__details educationrecord__details--open">
+                  <ul key={selectedRecord.id}>
+                    <div
+                      className="educationrecord__list"
+                      onClick={() => viewEducationRecordPage(record)}
+                    >
                       <div>
                         <div className="list__img">
                           <SchoolRoundedIcon className="list__img--icon" />
                         </div>
                         <div className="list__unidetails">
                           <div className="unidetails__name">
-                            {record.institution}
+                            {selectedRecord.institution}
                           </div>
                           <div className="unidetails__department">
-                            {record.department}
+                            {selectedRecord.department}
                           </div>
                         </div>
                       </div>
+                    </div>
 
-                      <KeyboardArrowRightRoundedIcon />
+                    <div className="matricnumerandgradyear">
+                      <div className="matnum">
+                        <p> Matric number</p>
+                        {selectedRecord.matricNumber}
+                      </div>
+                      <div className="yearofgrad">
+                        <p> Year of graduation</p>
+                        {selectedRecord.gradYear}
+                      </div>
+                    </div>
+                    <div className="transcript">
+                      <p> Transcript</p>
+                      {selectedRecord.transcript}
+                    </div>
+                    <div className="about">
+                      <p>
+                        {" "}
+                        About (Extracurricular achievements/political portfolio)
+                      </p>
+                      {selectedRecord.about}
                     </div>
                   </ul>
-                ))
+                </div>
               ) : (
-                <p>No education records available</p>
+                <p>No record selected</p>
               )}
             </div>
-          </div>
+          )}
 
           <p className="currentDate">{currentDate}</p>
 

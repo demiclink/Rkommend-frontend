@@ -8,6 +8,7 @@ import Signintype from "./pages/signinType";
 import Lecturersignin from "./pages/lecturersignin";
 import Studentsignin from "./pages/studentsignin";
 import SDHome from "./pages/studentsdashboard/sd-home";
+import Createeducationrecord from "./pages/studentsdashboard/createeducationrecord";
 
 const App = () => {
   return (
@@ -27,6 +28,10 @@ const App = () => {
         <Route path="/signin-lecturer" element={<Lecturersignin />} />
         <Route path="/signin-student" element={<Studentsignin />} />
         <Route path="/home-student" element={<SDHome />} />
+        <Route
+          path="/createeducationrecord"
+          element={<Createeducationrecord />}
+        />
       </Routes>
     </main>
   );

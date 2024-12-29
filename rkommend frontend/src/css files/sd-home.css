@@ -17,6 +17,8 @@ body {
 }
 
 .profilediv {
+  max-height: 503px;
+  overflow-y: scroll;
   height: auto;
   width: 390px;
   padding: 24px 32px;
@@ -119,7 +121,15 @@ body {
   background-color: #ffffff;
   height: auto;
   border-radius: 12px;
-  overflow-y: scroll;
+}
+
+.educationrecord--backbtn {
+  display: flex;
+  gap: 8px;
+  font-weight: 500;
+  color: #717171;
+  align-items: center;
+  cursor: pointer;
 }
 
 .educationrecord__header {
@@ -189,8 +199,68 @@ body {
   height: 12.46px;
 }
 
+.educationrecord__listdiv {
+  overflow-y: scroll;
+  height: 130px;
+}
+
 .educationrecord__listdiv ul {
-  padding: 0 40px 0 0;
+  padding: 0 15px 0 0;
+  cursor: pointer;
+}
+
+/* education record */
+.educationrecord__details--open {
+  height: 210px;
+  overflow-y: scroll;
+}
+
+.educationrecord__details--open ul {
+  padding: 0;
+}
+
+.backandeditdiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.editbtn {
+  width: auto;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  height: 28px;
+}
+
+.matricnumerandgradyear {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.yearofgrad,
+.matnum,
+.transcript {
+  width: 50%;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.about {
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.matnum p,
+.about p,
+.transcript p,
+.yearofgrad p {
+  color: #9b9b9b;
+  font-size: 12px;
+  /* text-wrap: nowrap; */
 }
 
 .currentDate {
@@ -293,7 +363,7 @@ body {
 .requests,
 .notifications {
   width: 300px;
-  height: 350px;
+  height: 300px;
   padding: 24px;
   gap: 12px;
   border-radius: 12px;
@@ -372,7 +442,7 @@ body {
   flex-direction: column;
   gap: 12px;
   overflow-y: scroll;
-  height: 276px;
+  height: 230px;
 }
 
 .requestslist--img {
@@ -394,7 +464,7 @@ body {
 }
 
 .requests__listdiv ul {
-  padding: 0 10px 0 0;
+  padding: 0 0 0 0;
   margin: 0;
 }
 
@@ -454,8 +524,13 @@ body {
   color: #9b9b9b;
 }
 
+.notifications__listdiv {
+  min-height: 200px;
+  height: auto;
+}
+
 .notifications__listdiv div ul {
-  padding: 0 10px 0 0;
+  padding: 0 0 0 0;
 }
 
 .notifications__list {
@@ -497,6 +572,114 @@ body {
 }
 
 /* editprofiledetails */
+/* .blackoverlay {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #1b1b1b;
+  position: fixed;
+  z-index: 102;
+  opacity: 30%;
+} */
+
+.editeducationrecord {
+  /* height: 100vh; */
+  top: 0;
+  bottom: 0;
+  width: 400px;
+  background-color: #ffffff;
+  position: fixed;
+  right: 0;
+  z-index: 103;
+  box-sizing: border-box;
+  transform: translateX(100%);
+  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  visibility: hidden;
+  /* overflow-y: scroll; */
+  display: flex;
+  flex-direction: column;
+}
+
+.editeducationrecord.active {
+  transform: translateX(0px);
+  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  visibility: visible;
+}
+
+.editeducationrecord--sec {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  overflow-y: scroll;
+  /* margin-bottom: 50px; */
+}
+
+.editeducationrecord__header-rect {
+  padding: 8px;
+  box-sizing: border-box;
+  width: 160px;
+  border-radius: 12px;
+  border: 1px solid #aeceec;
+  background-color: #deeaf7;
+  color: #0a66c2;
+  font-weight: 500;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editeducationrecord__form form {
+  /* margin-bottom: 40px; */
+}
+
+.editeducationrecord__form form div {
+  width: 100%;
+}
+
+.editprofiledetails__form input,
+.editprofiledetails__form select {
+  height: 20px;
+}
+
+.editeducationrecord_btns--div {
+  /* height: 120px; */
+  box-shadow: 0 -2px 20px 0 rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  gap: 8px;
+  display: flex;
+  z-index: 104;
+  top: 50px;
+  /* bottom: -120px; */
+  left: 0;
+  right: 0;
+  border: 1px solid #e7e7e7;
+  background-color: #f6f6f6;
+  /* opacity: 0; */
+}
+
+.editeducationrecord__btns--save,
+.editeducationrecord__btns--discard {
+  height: 40px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  text-wrap: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editeducationrecord__btns--discard {
+  background-color: #ffffff;
+  border: 1px solid #deeaf7;
+  color: #1b1b1b;
+}
+
+/* editeducationrecord */
+/* editprofiledetails */
 .blackoverlay {
   top: 0;
   bottom: 0;
@@ -517,14 +700,23 @@ body {
   position: fixed;
   right: 0;
   z-index: 101;
-  padding: 32px;
   box-sizing: border-box;
+  transform: translateX(100%);
+  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  visibility: hidden;
 }
 
-.editprofiledetails div {
+.editprofiledetails.active {
+  transform: translateX(0px);
+  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  visibility: visible;
+}
+
+.editprofiledetails--sec {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 32px;
 }
 
 .editprofiledetails__header-rect {
@@ -543,6 +735,8 @@ body {
 }
 
 .editprofiledetails__photo {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   font-size: 14px;
   font-weight: 500;
@@ -552,6 +746,7 @@ body {
 .editprofiledetails__photo--imgdiv {
   display: flex;
   flex-direction: row;
+  gap: 8px;
   /* justify-content: center; */
   align-items: center;
 }
@@ -576,10 +771,47 @@ body {
   color: #1b1b1b;
 }
 
+.editprofiledetails__form input,
+.editprofiledetails__form select {
+  height: 20px;
+}
+
 .editprofiledetails__titleandfirstname {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.editprofiledetails__titleandfirstname div {
+  width: 45%;
   display: flex;
   flex-direction: column;
+}
+
+.editprofiledetails__btns--div {
+  /* height: 120px; */
+  box-shadow: 0 -2px 20px 0 rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  gap: 8px;
+  display: flex;
+  border: 1px solid #e7e7e7;
+  background-color: #f6f6f6;
+}
+
+.editprofiledetails__btns--save,
+.editprofiledetails__btns--discard {
+  height: 40px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  text-wrap: nowrap;
+  display: flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
+}
+
+.editprofiledetails__btns--discard {
+  background-color: #ffffff;
+  border: 1px solid #deeaf7;
+  color: #1b1b1b;
 }

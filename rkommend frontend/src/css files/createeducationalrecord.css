@@ -1,0 +1,96 @@
+body {
+  font-family: "Inter";
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.cer-main-body {
+  margin-top: 80px;
+  background-color: #ffffff;
+  width: 100%;
+  padding: 32px;
+  box-sizing: border-box;
+  display: flex;
+  gap: 32px;
+}
+
+.cer__picturediv {
+  height: auto;
+  background-color: #deeaf7;
+  border-radius: 12px;
+  padding: 24px 32px;
+  width: 400px;
+  display: flex;
+}
+
+.cer__picture--img {
+  height: 350px;
+  width: 350px;
+}
+
+.cer__right {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+
+.cer__right--formdiv {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+
+.cer__right--formdiv form {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+
+.cer__right--formdiv form input,
+.cer__right--formdiv form select {
+  margin-top: 8px;
+}
+
+.cer__right--backbtn {
+  display: flex;
+  gap: 8px;
+  font-weight: 500;
+  color: #717171;
+  align-items: center;
+}
+
+.cer__right--form-header {
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.cer__right--matricandgrad,
+.cer__right--instanddept {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cer__right--instanddept div {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cer__right--matricandgrad div {
+  width: 45%;
+}
+
+.transcriptdiv {
+  width: 45%;
+}
+
+.extracurriculardiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.cer__btn {
+  border-radius: 12px;
+}
