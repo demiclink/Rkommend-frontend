@@ -21,15 +21,10 @@ const Createrecommedationrequests = () => {
 
   // Handle the select change
   const toggleSetSelectedRecord = (event) => {
-    // Get the selected id
     const selectedId = event.target.value;
-
-    // Find the selected record from the educationRecord array
     const record = user.educationRecord.find(
-      (rec) => rec.id === parseInt(selectedId)
+      (rec) => rec.id.toString() === selectedId // Comparing as string
     );
-
-    // Set the selected record in the state
     setSelectedRecord(record);
   };
 
@@ -44,14 +39,53 @@ const Createrecommedationrequests = () => {
 
   // recommendation request summary
   const [isRecReqSumOpen, setIsRecReqSumOpen] = useState(false);
+  const [isBlackOverlayVisible, setIsBlackOverlayVisible] = useState(false);
 
   const toggleIsRecReqSumOpen = () => {
     setIsRecReqSumOpen(!isRecReqSumOpen);
+    setIsBlackOverlayVisible(!isBlackOverlayVisible);
+  };
+
+  const [formData, setFormData] = useState({
+    instreqrec: "",
+    program: "",
+    course: "",
+    address: "",
+    deadline: "",
+    institution: "",
+    department: "",
+  });
+
+  // Handler for updating form data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handler for selecting a lecturer
+  const handleLecturerSelection = (e, lecturer) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      lecturer: lecturer.professor,
+      institution: lecturer.institution,
+      department: lecturer.department,
+    }));
+  };
+
+  const [isRecReqSubmissionSuccess, setIsRecReqSubmissionSuccess] =
+    useState(false);
+
+  const toggleSetIsRecReqSubmissionSuccess = () => {
+    setIsRecReqSubmissionSuccess(!isRecReqSubmissionSuccess);
   };
 
   return (
     <div>
       <SDheader className="SDheader" />
+
       <div className="sd-main-body">
         <div className="picturediv">
           <img src="note.png" alt="" />
@@ -206,45 +240,64 @@ const Createrecommedationrequests = () => {
                         <label htmlFor="instreqrec">
                           Institution requesting recommendation
                         </label>
-                        <input type="text" name="instreqrec" id="instreqrec" />
+                        <input
+                          type="text"
+                          name="instreqrec"
+                          id="instreqrec"
+                          value={formData.instreqrec}
+                          onChange={handleChange}
+                        />
                       </div>
 
                       <div>
                         <label htmlFor="program">Program</label>
-                        <select name="program" id="program">
-                          <option value="" disabled selected>
+                        <select
+                          name="program"
+                          id="program"
+                          value={formData.program}
+                          onChange={handleChange}
+                        >
+                          <option value="" disabled>
                             Select type of program
                           </option>
+                          <option value="Undergraduate">Undergraduate</option>
+                          <option value="Graduate">Graduate</option>
+                          <option value="PhD">PhD</option>
                         </select>
                       </div>
 
                       <div>
-                        <label htmlFor="course">Course </label>
+                        <label htmlFor="course">Course</label>
                         <input
                           type="text"
                           name="course"
                           id="course"
                           placeholder="Enter course to be studied"
+                          value={formData.course}
+                          onChange={handleChange}
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="address">Address </label>
+                        <label htmlFor="address">Address</label>
                         <input
                           type="text"
                           name="address"
                           id="address"
                           placeholder="Enter address of institution"
+                          value={formData.address}
+                          onChange={handleChange}
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="deadline">Deadline </label>
+                        <label htmlFor="deadline">Deadline</label>
                         <input
                           type="date"
                           name="deadline"
                           id="deadline"
-                          placeholder="Select deadline date"
+                          value={formData.deadline}
+                          onChange={handleChange}
                         />
                       </div>
                     </form>
@@ -302,7 +355,7 @@ const Createrecommedationrequests = () => {
                               .filter(
                                 (lecturer) =>
                                   lecturer.institution ===
-                                  selectedRecord.institution
+                                  selectedRecord.institution // Filter lecturers by institution
                               )
                               .map((lecturer) => (
                                 <div key={lecturer.id} className="lecturerlist">
@@ -313,10 +366,12 @@ const Createrecommedationrequests = () => {
 
                                   <input
                                     type="radio"
-                                    name="AccountInput"
-                                    id="LecturerAccountInput"
+                                    name="lecturer"
+                                    id={`LecturerAccountInput_${lecturer.id}`}
                                     value={lecturer.professor}
-                                    // onChange={handleRadioChange}
+                                    onChange={(e) =>
+                                      handleLecturerSelection(e, lecturer)
+                                    }
                                   />
                                 </div>
                               ))}
@@ -347,6 +402,140 @@ const Createrecommedationrequests = () => {
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* edit recommendation request summary*/}
+      <div
+        className={`editrecreqsum 
+            ${isRecReqSumOpen ? "active" : ""}
+        `}
+      >
+        <div className="editrecreqsum--sec">
+          <div className="backbtn" onClick={toggleIsRecReqSumOpen}>
+            <KeyboardArrowLeftRoundedIcon />
+            Back
+          </div>
+          <div className="editrecreqsum__header-rect">
+            <p>RECOMMENDATION REQUEST SUMMARY </p>
+          </div>
+
+          <h6>YOUR BACKGROUND</h6>
+
+          {selectedRecord ? (
+            <ul>
+              <div
+                className="createrecreq__list"
+                onClick={() => viewEducationRecordPage(selectedRecord)}
+              >
+                <div>
+                  <div className="list__img">
+                    <SchoolRounded className="list__img--icon" />
+                  </div>
+                  <div className="list__unidetails">
+                    <div className="unidetails__name">
+                      {selectedRecord.institution}
+                    </div>
+                    <div className="unidetails__department">
+                      {selectedRecord.department}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ul>
+          ) : (
+            ""
+          )}
+
+          <div className="createrecreq__list--rec-for">
+            <div className="rec-for__uniandprogramanddeadline">
+              <h4 className="rec-for__header">Recommendation for</h4>
+
+              <div>
+                <label htmlFor="rec-for__university">University</label>
+                <p>{formData.instreqrec}</p>
+              </div>
+              <div>
+                <label htmlFor="rec-for__program">Program</label>
+                <p> {formData.program}</p>
+              </div>
+              <div>
+                <label htmlFor="rec-for__deadline">Deadline</label>
+                <p> {formData.deadline}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="createrecreq__lectslctd">
+            <h6>LECTURER SELECTED</h6>
+            <div className="createrecreq__lectslctd--imgdiv">
+              <div className="lectslctd__img"></div>
+              <p>{formData.lecturer}</p>
+            </div>
+            <div className="lectslctd__instanddept">
+              <div>
+                <label htmlFor="lectslctd__lecturerInstitution">
+                  Institution
+                </label>
+                {formData.institution}
+              </div>
+              <div>
+                <label htmlFor="lectslctd__lecturerDepartment">
+                  Department
+                </label>
+                {formData.department}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="recreqsum_btns--div">
+          <button
+            className="recreqsum__btns--submit"
+            onClick={toggleSetIsRecReqSubmissionSuccess}
+          >
+            Submit recommendation
+          </button>
+        </div>
+      </div>
+
+      {/* blackoverlay */}
+      <div
+        onClick={() => {
+          toggleIsRecReqSumOpen();
+          toggleSetIsRecReqSubmissionSuccess();
+        }}
+        className={`blackoverlay ${isBlackOverlayVisible ? "visible" : ""}`}
+      ></div>
+
+      {/* submission success */}
+      <div
+        className={`recreqsubmissionsuccess ${
+          isRecReqSubmissionSuccess ? "active" : ""
+        }`}
+      >
+        <div
+          className="backbtn"
+          onClick={() => {
+            toggleIsRecReqSumOpen();
+            toggleSetIsRecReqSubmissionSuccess();
+          }}
+        >
+          <KeyboardArrowLeftRoundedIcon />
+          Back
+        </div>
+        <div className="recreqsubmissionsuccess--sec">
+          <h2 className="recreqsubmissionsuccess__header">
+            Recommendation request successfully submitted
+          </h2>
+          <div className="recreqsubmissionsuccess__img">
+            <img className="rocket" src="rocket.png" alt="" />
+          </div>
+          <Link to={"/"} className=" no-underline">
+            <button className="backtohome">
+              Back to Home
+              <EastRoundedIcon />
+            </button>
+          </Link>
         </div>
       </div>
     </div>
