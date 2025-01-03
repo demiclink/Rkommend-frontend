@@ -14,7 +14,8 @@ import {
   KeyboardArrowLeftOutlined as KeyboardArrowLeftOutlinedIcon,
 } from "@mui/icons-material";
 
-import { fetchMockData } from "../../mockData.js"; // Assuming this fetches the mock data
+import { fetchMockData } from "../../mockData.js";
+import Viewsubmittedrequests from "../../components/viewrequests.jsx";
 
 const SDHome = () => {
   const [timeofday, setTimeOfDay] = useState("");
@@ -199,6 +200,13 @@ const SDHome = () => {
     }
   };
 
+  //viewsubmitted requests
+  const [submittedRequestsPageOpen, setSubmittedRequestPage] = useState(false);
+
+  const viewSubmittedRequestsPage = () => {
+    setSubmittedRequestPage(!submittedRequestsPageOpen);
+  };
+
   return (
     <div>
       {/* editprofiledetails */}
@@ -341,6 +349,75 @@ const SDHome = () => {
           </button>
         </div>
       </div>
+
+      {/* blackoverlay */}
+      {isEducationRecordOpen && (
+        <div
+          onClick={handleOverlayClick}
+          // ref={overlayRef}
+          className="blackoverlay"
+        ></div>
+      )}
+
+      {/* viewsubmitted requests */}
+
+      {viewSubmittedRequestsPage && (
+        <Viewsubmittedrequests
+          className={`viewsubmittedrequests ${
+            submittedRequestsPageOpen ? "active" : ""
+          }`}
+          // background={
+          //   selectedRecord ? (
+          //     <div className=" educationrecord__listdiv educationrecord__details educationrecord__details--open">
+          //       <ul key={selectedRecord.id}>
+          //         <div
+          //           className="educationrecord__list"
+          //           onClick={() => viewEducationRecordPage(record)}
+          //         >
+          //           <div>
+          //             <div className="list__img">
+          //               <SchoolRoundedIcon className="list__img--icon" />
+          //             </div>
+          //             <div className="list__unidetails">
+          //               <div className="unidetails__name">
+          //                 {selectedRecord.institution}
+          //               </div>
+          //               <div className="unidetails__department">
+          //                 {selectedRecord.department}
+          //               </div>
+          //             </div>
+          //           </div>
+          //         </div>
+
+          //         <div className="matricnumerandgradyear">
+          //           <div className="matnum">
+          //             <p> Matric number</p>
+          //             {selectedRecord.matricNumber}
+          //           </div>
+          //           <div className="yearofgrad">
+          //             <p> Year of graduation</p>
+          //             {selectedRecord.gradYear}
+          //           </div>
+          //         </div>
+          //         <div className="transcript">
+          //           <p> Transcript</p>
+          //           {selectedRecord.transcript}
+          //         </div>
+          //         <div className="about">
+          //           <p>
+          //             {" "}
+          //             About (Extracurricular achievements/political portfolio)
+          //           </p>
+          //           {selectedRecord.about}
+          //         </div>
+          //       </ul>
+          //     </div>
+          //   ) : (
+          //     <p>No record selected</p>
+          //   )
+          // }
+        />
+      )}
 
       {/* blackoverlay */}
       {isEducationRecordOpen && (
@@ -541,9 +618,11 @@ const SDHome = () => {
               <div className="newrequest__header">
                 <p>NEW REQUEST</p>
               </div>
-              <button className="newrequest__btn">
-                Create recommendation request +
-              </button>
+              <Link className="no-underline" to="/createrecommendationrequests">
+                <button className="newrequest__btn">
+                  Create recommendation request +
+                </button>
+              </Link>
             </div>
           </div>
           <div className="reqandnotifs">
@@ -648,7 +727,7 @@ const SDHome = () => {
                 <div className="requests__listdiv">
                   {filteredRequests.length > 0 ? (
                     filteredRequests.map((request) => (
-                      <ul key={request.id}>
+                      <ul key={request.id} onClick={viewSubmittedRequestsPage}>
                         <div className="requests__list">
                           <div>
                             <div className="requestslist--img">

@@ -9,6 +9,7 @@ import Lecturersignin from "./pages/lecturersignin";
 import Studentsignin from "./pages/studentsignin";
 import SDHome from "./pages/studentsdashboard/sd-home";
 import Createeducationrecord from "./pages/studentsdashboard/createeducationrecord";
+import Createrecommedationrequests from "./pages/studentsdashboard/createrecommedationrequests";
 
 const App = () => {
   return (
@@ -31,6 +32,10 @@ const App = () => {
         <Route
           path="/createeducationrecord"
           element={<Createeducationrecord />}
+        />
+        <Route
+          path="/createrecommendationrequests"
+          element={<Createrecommedationrequests />}
         />
       </Routes>
     </main>
