@@ -5,7 +5,8 @@ const mockData = {
     date: "Tuesday, December 28, 2023",
     email: "dadamujosh99@yahoo.com",
     phonenumber: "+2349012345678",
-    reqavail: 1,
+    reqavail: 0,
+    checkout: "success",
   },
   educationRecord: [
     {

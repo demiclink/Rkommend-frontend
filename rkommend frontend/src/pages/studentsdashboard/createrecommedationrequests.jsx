@@ -8,6 +8,8 @@ import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftR
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import "../../css files/createrecommendationrequests.css";
 import { Link } from "react-router-dom";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 
 const Createrecommedationrequests = () => {
   const [user, setUser] = useState(null);
@@ -82,6 +84,27 @@ const Createrecommedationrequests = () => {
     setIsRecReqSubmissionSuccess(!isRecReqSubmissionSuccess);
   };
 
+  // requestqty
+  const [qtyCounter, setQtyCounter] = useState(1);
+
+  const increaseQtyCounter = () => {
+    setQtyCounter(qtyCounter + 1);
+  };
+
+  const decreaseQtyCounter = () => {
+    if (qtyCounter > 1) {
+      setQtyCounter(qtyCounter - 1);
+    }
+  };
+
+  const [isBuyReqOpen, setIsBuyReqOpen] = useState(false);
+  const [isBlackOverlayBuyVisible, setIsBlackOverlayBuyVisible] =
+    useState(false);
+  const toggleIsBuyReqOpen = () => {
+    setIsBuyReqOpen(!isBuyReqOpen);
+    setIsBlackOverlayBuyVisible(!isBlackOverlayBuyVisible);
+  };
+
   return (
     <div>
       <SDheader className="SDheader" />
@@ -100,24 +123,83 @@ const Createrecommedationrequests = () => {
 
           <h3>Create recommendation request</h3>
           {user && user.student.reqavail === 0 && (
-            <div className="zeroreq">
-              <div className="zeroreq__padlockimg">
-                <img src="padlock.png" alt="" />
+            <>
+              <div className="zeroreq">
+                <div className="zeroreq__padlockimg">
+                  <img src="padlock.png" alt="" />
+                </div>
+                <div className="zeroreq__description">
+                  <div className="zeroreq__description--maintext">
+                    You have 0 requests available.
+                  </div>
+                  <div className="zeroreq__description--subtext">
+                    Buy more request slots to continue your applications without
+                    delay
+                  </div>
+                  <button
+                    className="zeroreq__description--btn"
+                    onClick={toggleIsBuyReqOpen}
+                  >
+                    Buy request slots
+                    <EastRoundedIcon />
+                  </button>
+                </div>
               </div>
-              <div className="zeroreq__description">
-                <div className="zeroreq__description--maintext">
-                  You have 0 requests available.
+
+              <div className={`buyreqs ${isBuyReqOpen ? "active" : ""}`}>
+                <div className="backbtn" onClick={toggleIsBuyReqOpen}>
+                  <KeyboardArrowLeftRoundedIcon />
+                  Back
                 </div>
-                <div className="zeroreq__description--subtext">
-                  Buy more request slots to continue your applications without
-                  delay
+
+                <h4>Buy request slots</h4>
+                <div className="buyreqs__rate--div">
+                  RATE
+                  <p>₦1,000/request</p>
                 </div>
-                <button className="zeroreq__description--btn">
-                  Buy request slots
+
+                <div className="buyreqs__qty">
+                  <h5>How many do you want to buy?</h5>
+                  <div className="buyreqs__qty--div">
+                    SET QUANTITY
+                    <div className="buyreqs__qty--counter">
+                      <div
+                        className="buyreqs__qty--counter--down"
+                        onClick={decreaseQtyCounter}
+                      >
+                        <KeyboardArrowDownRoundedIcon />
+                      </div>
+                      <p>{qtyCounter}</p>
+                      <div
+                        className="buyreqs__qty--counter--up"
+                        onClick={increaseQtyCounter}
+                      >
+                        <KeyboardArrowUpRoundedIcon />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="buyreqs__total">
+                  TOTAL COST
+                  <div className="totalcost">₦{qtyCounter * 1000}</div>
+                </div>
+
+                <button className="buyreqs__btn">
+                  Proceed to check out
                   <EastRoundedIcon />
                 </button>
               </div>
-            </div>
+
+              <div
+                onClick={() => {
+                  toggleIsBuyReqOpen();
+                }}
+                className={`blackoverlay--req ${
+                  isBlackOverlayBuyVisible ? "visible" : ""
+                }`}
+              ></div>
+            </>
           )}
 
           {user && user.student.reqavail > 0 && (
@@ -503,6 +585,7 @@ const Createrecommedationrequests = () => {
         onClick={() => {
           toggleIsRecReqSumOpen();
           toggleSetIsRecReqSubmissionSuccess();
+          toggleIsBuyReqOpen();
         }}
         className={`blackoverlay ${isBlackOverlayVisible ? "visible" : ""}`}
       ></div>

@@ -251,11 +251,24 @@ form div {
   transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-.blackoverlay {
+.blackoverlay--req {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #1b1b1b;
+  position: fixed;
+  z-index: 100;
+  opacity: 30%;
+}
+
+.blackoverlay,
+.blackoverlay--req {
   visibility: hidden;
 }
 
-.blackoverlay.visible {
+.blackoverlay.visible,
+.blackoverlay--req.visible {
   visibility: visible;
 }
 
@@ -455,4 +468,128 @@ form div {
   gap: 8px;
   align-items: center;
   width: 100%;
+}
+
+/* buyreqs */
+.buyreqs {
+  top: 0;
+  bottom: 0;
+  width: 400px;
+  background-color: #ffffff;
+  position: fixed;
+  right: 0;
+  z-index: 106;
+  box-sizing: border-box;
+  transform: translateX(100%);
+  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  /* visibility: hidden; */
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+}
+
+.buyreqs.active {
+  transform: translateX(0px);
+}
+
+.buyreqs h4 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.buyreqs__rate--div {
+  background-color: #f6f6f6;
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+  padding: 24px;
+  color: #9b9b9b;
+  font-weight: 400;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buyreqs__rate--div p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1b1b1b;
+  margin: 0;
+}
+
+.buyreqs__qty {
+  margin-top: 32px;
+}
+
+.buyreqs__qty h5 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.buyreqs__qty--div {
+  background-color: #f6f6f6;
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+  padding: 0px 24px;
+  color: #9b9b9b;
+  font-weight: 400;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 72px;
+}
+
+.buyreqs__qty--counter {
+  margin: 0;
+  display: flex;
+  background-color: #e7e7e7;
+  padding: 12px 16px;
+  border-radius: 6px;
+  justify-content: space-between;
+  align-items: center;
+  color: #1b1b1b;
+  gap: 24px;
+  /* width: 72px; */
+}
+
+.buyreqs__qty--counter p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.buyreqs__qty--counter--down,
+.buyreqs__qty--counter--up {
+  height: 24px;
+  width: 24px;
+  background-color: #d7d7d7;
+  border-radius: 50%;
+  gap: 24px;
+  color: #717171;
+  margin: 0;
+}
+
+.buyreqs__total {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #444444;
+}
+
+.totalcost {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1b1b1b;
+}
+
+.buyreqs__btn {
+  border-radius: 12px;
+  gap: 16px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
