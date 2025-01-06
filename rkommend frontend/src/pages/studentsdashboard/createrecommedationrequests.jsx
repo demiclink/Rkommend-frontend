@@ -105,6 +105,12 @@ const Createrecommedationrequests = () => {
     setIsBlackOverlayBuyVisible(!isBlackOverlayBuyVisible);
   };
 
+  // purchase success
+  const [isSuccess, setIsSuccess] = useState(false);
+  const toggleIsSuccess = () => {
+    setIsSuccess(!isSuccess);
+  };
+
   return (
     <div>
       <SDheader className="SDheader" />
@@ -153,6 +159,55 @@ const Createrecommedationrequests = () => {
                 </div>
 
                 <h4>Buy request slots</h4>
+
+                {/* purchase success */}
+                <>
+                  {user &&
+                    user.student &&
+                    user.student.checkout === "success" && (
+                      <div
+                        className={`purchasesuccess__container ${
+                          isSuccess ? "checkout" : ""
+                        }`}
+                      >
+                        <div className="purchasesuccess">
+                          <h4>Your purchase is successful</h4>
+                          <img src="R-TickSquare.png" alt="" />
+                          Continue your admission journey with easy
+                          recommendation requests
+                        </div>
+
+                        <Link to={"/home-student"} className="no-underline">
+                          <button>
+                            Proceed to Home <EastRoundedIcon />
+                          </button>
+                        </Link>
+                      </div>
+                    )}
+
+                  {user &&
+                    user.student &&
+                    user.student.checkout === "failed" && (
+                      <div
+                        className={`purchasesuccess__container ${
+                          isSuccess ? "checkout" : ""
+                        }`}
+                      >
+                        <div className="purchasesuccess purchasefailure">
+                          <h3 className="purchasefailure__h4">
+                            Payment failed
+                          </h3>
+                          <img src="R-CloseSquare.png" alt="" />
+                          Try again
+                        </div>
+
+                        <button onClick={toggleIsBuyReqOpen}>
+                          Proceed to Buy request slots <EastRoundedIcon />
+                        </button>
+                      </div>
+                    )}
+                </>
+
                 <div className="buyreqs__rate--div">
                   RATE
                   <p>₦1,000/request</p>
@@ -185,7 +240,7 @@ const Createrecommedationrequests = () => {
                   <div className="totalcost">₦{qtyCounter * 1000}</div>
                 </div>
 
-                <button className="buyreqs__btn">
+                <button className="buyreqs__btn" onClick={toggleIsSuccess(), }>
                   Proceed to check out
                   <EastRoundedIcon />
                 </button>
@@ -613,7 +668,7 @@ const Createrecommedationrequests = () => {
           <div className="recreqsubmissionsuccess__img">
             <img className="rocket" src="rocket.png" alt="" />
           </div>
-          <Link to={"/"} className=" no-underline">
+          <Link to={"/home-student"} className=" no-underline">
             <button className="backtohome">
               Back to Home
               <EastRoundedIcon />

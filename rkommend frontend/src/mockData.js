@@ -6,7 +6,7 @@ const mockData = {
     email: "dadamujosh99@yahoo.com",
     phonenumber: "+2349012345678",
     reqavail: 0,
-    checkout: "success",
+    checkout: "failed",
   },
   educationRecord: [
     {
@@ -211,6 +211,7 @@ const mockData = {
     },
   ],
 };
+// mockData.student.checkout = Math.random() < 0.5 ? "success" : "failed";
 
 export const fetchMockData = () => {
   return new Promise((resolve) => {
