@@ -6,7 +6,7 @@ body {
   box-sizing: border-box;
 }
 
-.sd-main-body {
+.crr-main-body {
   margin-top: 80px;
   background-color: #ffffff;
   width: 100%;
@@ -457,9 +457,9 @@ form div {
   width: 280px;
 }
 
-.no-underline {
+/* .no-underline {
   width: 100%;
-}
+} */
 
 .backtohome {
   border-radius: 12px;

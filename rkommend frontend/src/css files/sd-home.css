@@ -4,6 +4,7 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  width: 100vw;
 }
 
 .sd-main-body {
@@ -17,16 +18,17 @@ body {
 }
 
 .profilediv {
-  max-height: 503px;
-  overflow-y: scroll;
-  height: auto;
-  width: 390px;
-  padding: 24px 32px;
+  /* max-height: 100%; */
+  /* overflow-y: scroll; */
+  /* height: auto; */
+  width: 378.66px;
+  padding: 24px;
   border-radius: 12px;
   background-color: #deeaf7;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  box-sizing: border-box;
 }
 
 .profilediv__greetings {
@@ -41,8 +43,8 @@ body {
 }
 
 .profilediv__stddetails--img {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   background-color: #0a66c2;
   border-radius: 50%;
 }
@@ -51,7 +53,7 @@ body {
   color: #1b1b1b;
   font-weight: 600;
   font-size: 18px;
-  width: 213px;
+  /* width: 213px; */
 }
 
 .profilediv__stddetails {
@@ -281,7 +283,7 @@ body {
 }
 
 .requestsbodydiv {
-  width: 750px;
+  width: 787.99px;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -351,7 +353,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  /* width: 50%; */
+  /* width: 390px; */
+  box-sizing: border-box;
   height: 100%;
 }
 
@@ -363,7 +366,8 @@ body {
 
 .requests,
 .notifications {
-  width: 300px;
+  box-sizing: border-box;
+  width: 378.66px;
   height: 300px;
   padding: 24px;
   gap: 12px;

@@ -115,7 +115,7 @@ const Createrecommedationrequests = () => {
     <div>
       <SDheader className="SDheader" />
 
-      <div className="sd-main-body">
+      <div className="crr-main-body">
         <div className="picturediv">
           <img src="note.png" alt="" />
         </div>
@@ -240,7 +240,7 @@ const Createrecommedationrequests = () => {
                   <div className="totalcost">₦{qtyCounter * 1000}</div>
                 </div>
 
-                <button className="buyreqs__btn" onClick={toggleIsSuccess(), }>
+                <button className="buyreqs__btn" onClick={toggleIsSuccess}>
                   Proceed to check out
                   <EastRoundedIcon />
                 </button>

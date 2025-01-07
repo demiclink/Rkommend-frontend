@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Header, Footer } from "../components/headerandfooter";
 import "../css files/landingPage.css";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
@@ -51,14 +52,19 @@ const LandingPage = () => {
         </p>
 
         <div className="main-body__btns">
-          <button className="main-body__btns--GetStarted btn--blue">
-            Get started
-            <EastRoundedIcon />{" "}
-          </button>
-          <button className="main-body__btns--signin">
-            Sign in
-            <EastRoundedIcon />{" "}
-          </button>
+          <Link to={"/accountType"} className="no-underline">
+            <button className="main-body__btns--GetStarted btn--blue">
+              Get started
+              <EastRoundedIcon />{" "}
+            </button>
+          </Link>
+
+          <Link to="/signinType" className="no-underline">
+            <button className="main-body__btns--signin">
+              Sign in
+              <EastRoundedIcon />{" "}
+            </button>
+          </Link>
         </div>
 
         <div className="howitWorks">
@@ -72,9 +78,9 @@ const LandingPage = () => {
               <img src="Frame 43131 (1).png" alt="divider" />
             </div>
             <div className="cardnumberings">
-              <div id="1">1</div>
-              <div id="2">2</div>
-              <div id="3">3</div>
+              <div className={`one ${step === 1 ? "stepNum" : ""}`}>1</div>
+              <div className={`two ${step === 2 ? "stepNum" : ""}`}>2</div>
+              <div className={`three ${step === 3 ? "stepNum" : ""}`}>3</div>
             </div>
           </div>
 
@@ -217,9 +223,12 @@ const LandingPage = () => {
             for <br /> <span className="recprice">NGN10,000</span>
           </p>
           <div className="secbody__description--btn">
-            <button className="secbody__description--btn btn--blue">
-              Get Started
-            </button>
+            <Link to={"/accountType"} className="no-underline">
+              {" "}
+              <button className="secbody__description--btn btn--blue">
+                Get Started
+              </button>
+            </Link>
           </div>
         </div>
       </div>

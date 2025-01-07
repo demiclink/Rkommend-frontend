@@ -23,8 +23,13 @@ export const Header = () => {
         </Link>
 
         <div className="header__btns">
-          <button className="header__btns--signin btn--clear">Sign in</button>
-          <button className="header__btns--signup btn--blue">Sign up</button>
+          <Link to={"/signinType"} className="no-underline">
+            <button className="header__btns--signin btn--clear">Sign in</button>{" "}
+          </Link>
+          <Link to={"/accountType"} className="no-underline">
+            {" "}
+            <button className="header__btns--signup btn--blue">Sign up</button>
+          </Link>
         </div>
       </header>
     </>
