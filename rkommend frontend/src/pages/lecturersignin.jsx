@@ -14,7 +14,7 @@ const LecturerSignin = () => {
 
       <div className="main-body">
         <div className="mainbody__container">
-          <SigninFormVector Status={"Lecturer"} />
+          <SigninFormVector Type={"Lecturer"} />
           <div className="signinForm__div">
             <div className="signinFormHeader">Sign in</div>
             <div className="signinForm__emaildiv">

@@ -21,7 +21,7 @@
 /* Slide-in effect for the vector on page 1 */
 .vectordiv__slide-in {
   opacity: 0;
-  transform: translateX(-100%); /* Start off-screen */
+  transform: translateX(100%); /* Start off-screen */
   transition: all 0.6s ease-in-out; /* Controls the transition speed and smoothness */
 }
 
@@ -34,7 +34,7 @@
 /* Slide-in effect for the vector on page 2 */
 .vectordiv__slide-out {
   opacity: 0;
-  transform: translateX(100%); /* Slide off-screen to the right */
+  transform: translateX(-100%); /* Slide off-screen to the right */
   transition: all 0.6s ease-in-out;
 }
 
@@ -118,11 +118,11 @@
   width: 600px;
   display: flex;
   flex-direction: column;
-  /* margin: auto; */
   padding: 20px;
   background-color: #fff;
   border-radius: 12px;
-  gap: 32px;
+  gap: 24px;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -136,20 +136,20 @@ h1 {
   margin-bottom: 20px;
 }
 
-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  width: 100%;
-  justify-content: space-between;
-  /* padding: 40px; */
-  box-sizing: border-box;
-}
-
-.inputdiv {
+.signupForm__form {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  box-sizing: border-box;
+  gap: 24px;
+}
+
+.titlefirstnameandlastname {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 label {
@@ -164,7 +164,7 @@ select {
   border: 1px solid #e7e7e7;
   border-radius: 10px;
   background-color: #f6f6f6;
-  width: 100%;
+  /* width: 100%; */
 }
 
 input:focus,
@@ -183,7 +183,8 @@ select::placeholder {
 .passwordandconfirmpassword,
 .institutionanddepartment {
   display: flex;
-  width: 100%;
+  /* width: 100%;  */
+  flex-direction: row;
   gap: 32px;
 }
 
@@ -193,7 +194,9 @@ select::placeholder {
 .confirmpassworddiv,
 .institutiondiv,
 .departmentdiv {
-  width: 100%;
+  /* width: 100%; */
+  flex-direction: column;
+  display: flex;
 }
 
 button {
@@ -216,7 +219,7 @@ button {
   color: #444444;
   font-weight: 400;
   font-size: 14px;
-  /* margin-top: -10px; */
+  margin: -10px 0 0px 0;
 }
 
 .password-note span {
@@ -228,6 +231,8 @@ button {
 .verifyemaildiv {
   width: 100%;
   gap: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .verifyemailbtn {
@@ -235,7 +240,7 @@ button {
   gap: 8px;
   justify-content: center;
   align-items: center;
-  margin-top: 32px;
+  /* margin-top: 32px; */
 }
 
 .formsubmit {

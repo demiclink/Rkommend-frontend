@@ -41,11 +41,9 @@ const Createrecommedationrequests = () => {
 
   // recommendation request summary
   const [isRecReqSumOpen, setIsRecReqSumOpen] = useState(false);
-  const [isBlackOverlayVisible, setIsBlackOverlayVisible] = useState(false);
 
   const toggleIsRecReqSumOpen = () => {
     setIsRecReqSumOpen(!isRecReqSumOpen);
-    setIsBlackOverlayVisible(!isBlackOverlayVisible);
   };
 
   const [formData, setFormData] = useState({
@@ -82,6 +80,12 @@ const Createrecommedationrequests = () => {
 
   const toggleSetIsRecReqSubmissionSuccess = () => {
     setIsRecReqSubmissionSuccess(!isRecReqSubmissionSuccess);
+  };
+
+  // blackoverlayp
+  const handleOverlayClick = () => {
+    setIsRecReqSumOpen(false);
+    setIsRecReqSubmissionSuccess(false);
   };
 
   // requestqty
@@ -274,6 +278,7 @@ const Createrecommedationrequests = () => {
                       </label>
                       <select
                         name="edu-record"
+                        className="edu-record"
                         id="edu-record"
                         onChange={toggleSetSelectedRecord}
                       >
@@ -372,7 +377,7 @@ const Createrecommedationrequests = () => {
                       Recommendation details
                     </div>
 
-                    <form>
+                    <form className="createrecreq--form">
                       <div>
                         <label htmlFor="instreqrec">
                           Institution requesting recommendation
@@ -636,13 +641,12 @@ const Createrecommedationrequests = () => {
       </div>
 
       {/* blackoverlay */}
+      {/* blackoverlay for edit education div*/}
       <div
-        onClick={() => {
-          toggleIsRecReqSumOpen();
-          toggleSetIsRecReqSubmissionSuccess();
-          toggleIsBuyReqOpen();
-        }}
-        className={`blackoverlay ${isBlackOverlayVisible ? "visible" : ""}`}
+        className={`blackoverlay editprofileoverlay ${
+          isRecReqSumOpen ? "visible" : ""
+        }`}
+        onClick={handleOverlayClick}
       ></div>
 
       {/* submission success */}

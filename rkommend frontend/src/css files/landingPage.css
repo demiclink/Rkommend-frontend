@@ -25,6 +25,7 @@ button {
   width: calc(100% - 128px);
   flex-direction: row;
   z-index: 99;
+  background-color: #ffffff;
 }
 
 .header__logo {

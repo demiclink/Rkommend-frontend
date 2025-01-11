@@ -22,7 +22,7 @@ body {
   /* overflow-y: scroll; */
   /* height: auto; */
   width: 378.66px;
-  padding: 24px;
+  padding: 32px;
   border-radius: 12px;
   background-color: #deeaf7;
   display: flex;
@@ -273,7 +273,7 @@ body {
 }
 
 .logout {
-  padding: 16px;
+  padding: 0;
   display: flex;
   gap: 8px;
   size: 14px;
@@ -368,7 +368,7 @@ body {
 .notifications {
   box-sizing: border-box;
   width: 378.66px;
-  height: 300px;
+  height: 340px;
   padding: 24px;
   gap: 12px;
   border-radius: 12px;
@@ -447,7 +447,7 @@ body {
   flex-direction: column;
   gap: 12px;
   overflow-y: scroll;
-  height: 230px;
+  height: 210px;
   cursor: pointer;
 }
 

@@ -16,6 +16,7 @@ import {
 
 import { fetchMockData } from "../../mockData.js";
 import Viewsubmittedrequests from "../../components/viewrequests.jsx";
+import "../../css files/viewreq.css";
 
 const SDHome = () => {
   const [timeofday, setTimeOfDay] = useState("");
@@ -155,39 +156,16 @@ const SDHome = () => {
 
   //Editeducationrecorddetail
   const [isEducationRecordOpen, setIsEducationRecordOpen] = useState(false);
-
   const toggleEditEducationRecord = () => {
     setIsEducationRecordOpen(!isEducationRecordOpen);
   };
 
+  // Logic for the overlay
   const handleOverlayClick = () => {
-    setIsEducationRecordOpen(false); // This will hide the education record and overlay
+    setIsEducationRecordOpen(false);
+    setIsEditDetailsOpen(false);
+    setSubmittedRequestPage(false);
   };
-
-  // Close editprofiledetails if click is on blackoverlay and outside editprofiledetails
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      // If clicked on blackoverlay and not inside editprofiledetails
-      if (
-        overlayRef.current &&
-        overlayRef.current.contains(event.target) &&
-        editDetailsRef.current &&
-        !editDetailsRef.current.contains(event.target)
-      ) {
-        setIsEditDetailsOpen(false); // Close editprofiledetails
-      }
-    };
-
-    if (isEditDetailsOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isEditDetailsOpen]);
 
   // Education record setting
   const [educationRecordPage, setEducationRecordPage] = useState(1);
@@ -202,15 +180,16 @@ const SDHome = () => {
 
   //viewsubmitted requests
   const [submittedRequestsPageOpen, setSubmittedRequestPage] = useState(false);
+  const [selectedRequest, setSelectedRequest] = useState(false);
 
-  const viewSubmittedRequestsPage = () => {
+  const viewSubmittedRequestsPage = (request) => {
     setSubmittedRequestPage(!submittedRequestsPageOpen);
+    setSelectedRequest(request);
   };
 
   return (
     <div>
       {/* editprofiledetails */}
-
       <div
         ref={editDetailsRef}
         className={`editprofiledetails ${isEditDetailsOpen ? "active" : ""}`}
@@ -275,17 +254,16 @@ const SDHome = () => {
         </div>
       </div>
 
-      {/* blackoverlay */}
-      {isEditDetailsOpen && (
-        <div
-          ref={overlayRef} // Ref for blackoverlay
-          className="blackoverlay"
-        ></div>
-      )}
+      {/* blackoverlay for profile div*/}
+      <div
+        className={`blackoverlay editprofileoverlay ${
+          isEditDetailsOpen ? "visible" : ""
+        }`}
+        onClick={handleOverlayClick}
+      ></div>
 
       {/* editeducationrecords */}
       <div
-        ref={editEducationRecordRef}
         className={`editeducationrecord ${
           isEducationRecordOpen ? "active" : ""
         }`}
@@ -350,83 +328,28 @@ const SDHome = () => {
         </div>
       </div>
 
-      {/* blackoverlay */}
-      {isEducationRecordOpen && (
-        <div
-          onClick={handleOverlayClick}
-          // ref={overlayRef}
-          className="blackoverlay"
-        ></div>
-      )}
+      {/* blackoverlay for edit education div*/}
+      <div
+        className={`blackoverlay editeducationrecord ${
+          isEducationRecordOpen ? "visible" : ""
+        }`}
+        onClick={handleOverlayClick}
+      ></div>
 
       {/* viewsubmitted requests */}
+      <Viewsubmittedrequests
+        className={`reqdetails ${submittedRequestsPageOpen ? "active" : ""}`}
+        viewSubmittedRequestsPage={viewSubmittedRequestsPage}
+        selectedRequest={selectedRequest}
+      />
 
-      {viewSubmittedRequestsPage && (
-        <Viewsubmittedrequests
-          className={`viewsubmittedrequests ${
-            submittedRequestsPageOpen ? "active" : ""
-          }`}
-          // background={
-          //   selectedRecord ? (
-          //     <div className=" educationrecord__listdiv educationrecord__details educationrecord__details--open">
-          //       <ul key={selectedRecord.id}>
-          //         <div
-          //           className="educationrecord__list"
-          //           onClick={() => viewEducationRecordPage(record)}
-          //         >
-          //           <div>
-          //             <div className="list__img">
-          //               <SchoolRoundedIcon className="list__img--icon" />
-          //             </div>
-          //             <div className="list__unidetails">
-          //               <div className="unidetails__name">
-          //                 {selectedRecord.institution}
-          //               </div>
-          //               <div className="unidetails__department">
-          //                 {selectedRecord.department}
-          //               </div>
-          //             </div>
-          //           </div>
-          //         </div>
-
-          //         <div className="matricnumerandgradyear">
-          //           <div className="matnum">
-          //             <p> Matric number</p>
-          //             {selectedRecord.matricNumber}
-          //           </div>
-          //           <div className="yearofgrad">
-          //             <p> Year of graduation</p>
-          //             {selectedRecord.gradYear}
-          //           </div>
-          //         </div>
-          //         <div className="transcript">
-          //           <p> Transcript</p>
-          //           {selectedRecord.transcript}
-          //         </div>
-          //         <div className="about">
-          //           <p>
-          //             {" "}
-          //             About (Extracurricular achievements/political portfolio)
-          //           </p>
-          //           {selectedRecord.about}
-          //         </div>
-          //       </ul>
-          //     </div>
-          //   ) : (
-          //     <p>No record selected</p>
-          //   )
-          // }
-        />
-      )}
-
-      {/* blackoverlay */}
-      {isEducationRecordOpen && (
-        <div
-          onClick={handleOverlayClick}
-          // ref={overlayRef}
-          className="blackoverlay"
-        ></div>
-      )}
+      {/* blackoverlay for submitted requests*/}
+      <div
+        className={`blackoverlay editprofileoverlay ${
+          submittedRequestsPageOpen ? "visible" : ""
+        }`}
+        onClick={handleOverlayClick}
+      ></div>
 
       <SDheader className="SDheader" />
       <div className="sd-main-body">
@@ -727,7 +650,10 @@ const SDHome = () => {
                 <div className="requests__listdiv">
                   {filteredRequests.length > 0 ? (
                     filteredRequests.map((request) => (
-                      <ul key={request.id} onClick={viewSubmittedRequestsPage}>
+                      <ul
+                        key={request.id}
+                        onClick={() => viewSubmittedRequestsPage(request)}
+                      >
                         <div className="requests__list">
                           <div>
                             <div className="requestslist--img">

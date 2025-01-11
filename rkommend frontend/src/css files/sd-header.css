@@ -8,6 +8,7 @@
   align-items: center;
   z-index: 99;
   top: 0;
+  background-color: #ffffff;
 }
 
 .headerdiv__logodiv {

@@ -89,35 +89,38 @@ const StudentAccount = () => {
                 <p class="form-subtitle">All fields are compulsory</p>
               </div>
 
-              <form>
-                <div className="inputdiv">
-                  <label for="title">Title</label>
-                  <select id="title" name="title" required>
-                    <option>Select your title</option>
-                    {/* <!-- Other options here --> */}
-                  </select>
-                </div>
+              <form className="signupForm__form">
+                <div className="titlefirstnameandlastname">
+                  <div>
+                    {" "}
+                    <label for="title">Title</label>
+                    <select id="title" name="title" required>
+                      <option>Select your title</option>
+                      {/* <!-- Other options here --> */}
+                    </select>
+                  </div>
 
-                <div className="inputdiv">
-                  <label for="firstname">Firstname</label>
-                  <input
-                    type="text"
-                    id="firstname"
-                    name="firstname"
-                    placeholder="Enter your firstname"
-                    required
-                  />
-                </div>
+                  <div>
+                    <label for="firstname">Firstname</label>
+                    <input
+                      type="text"
+                      id="firstname"
+                      name="firstname"
+                      placeholder="Enter your firstname"
+                      required
+                    />
+                  </div>
 
-                <div className="inputdiv">
-                  <label for="lastname">Lastname</label>
-                  <input
-                    type="text"
-                    id="lastname"
-                    name="lastname"
-                    placeholder="Enter your lastname"
-                    required
-                  />
+                  <div>
+                    <label for="lastname">Lastname</label>
+                    <input
+                      type="text"
+                      id="lastname"
+                      name="lastname"
+                      placeholder="Enter your lastname"
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="phoneandemail">
@@ -191,30 +194,28 @@ const StudentAccount = () => {
                 <h1 className="form-title">Verify your email</h1>
               </div>
 
-              <form>
-                <div className="inputdiv verifyemaildiv">
-                  <label for="verify-email">
-                    Enter the verification code send to{" "}
-                    <span>useremail@mail.com</span>{" "}
-                  </label>
-                  <input
-                    type="email"
-                    id="verify-email"
-                    name="verify-email"
-                    placeholder="Enter verification code"
-                    required
-                  />
-                </div>
+              <div className="verifyemaildiv">
+                <label for="verify-email">
+                  Enter the verification code send to{" "}
+                  <span>useremail@mail.com</span>{" "}
+                </label>
+                <input
+                  type="email"
+                  id="verify-email"
+                  name="verify-email"
+                  placeholder="Enter verification code"
+                  required
+                />
+              </div>
 
-                <button
-                  type="submit"
-                  className="verifyemailbtn formsubmit btn--blue"
-                  onClick={nextPage}
-                >
-                  Verify email
-                  <EastRoundedIcon />
-                </button>
-              </form>
+              <button
+                type="submit"
+                className="verifyemailbtn formsubmit btn--blue"
+                onClick={nextPage}
+              >
+                Verify email
+                <EastRoundedIcon />
+              </button>
             </div>
           )}
 
@@ -225,30 +226,28 @@ const StudentAccount = () => {
                 <button class="form-secbtn">Skip for now</button>
               </div>
 
-              <form>
-                <div className="inputdiv verifyemaildiv">
-                  <label for="verify-email">
-                    Enter the verification code send to{" "}
-                    <span>useremail@mail.com</span>{" "}
-                  </label>
-                  <input
-                    type="email"
-                    id="verify-email"
-                    name="verify-email"
-                    placeholder="Enter verification code"
-                    required
-                  />
-                </div>
+              <div className="inputdiv verifyemaildiv">
+                <label for="verify-email">
+                  Enter the verification code send to{" "}
+                  <span>useremail@mail.com</span>{" "}
+                </label>
+                <input
+                  type="email"
+                  id="verify-email"
+                  name="verify-email"
+                  placeholder="Enter verification code"
+                  required
+                />
+              </div>
 
-                <button
-                  type="submit"
-                  className="verifyemailbtn formsubmit btn--blue"
-                  onClick={nextPage}
-                >
-                  Verify email
-                  <EastRoundedIcon />
-                </button>
-              </form>
+              <button
+                type="submit"
+                className="verifyemailbtn formsubmit btn--blue"
+                onClick={nextPage}
+              >
+                Verify email
+                <EastRoundedIcon />
+              </button>
             </div>
           )}
         </div>

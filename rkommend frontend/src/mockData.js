@@ -5,7 +5,7 @@ const mockData = {
     date: "Tuesday, December 28, 2023",
     email: "dadamujosh99@yahoo.com",
     phonenumber: "+2349012345678",
-    reqavail: 2,
+    reqavail: 0,
     checkout: "failed",
   },
   educationRecord: [
@@ -60,9 +60,21 @@ const mockData = {
         professor: "Dr. Eloisse Motunrayo",
         institution: "Oxford University",
         department: "Computer Science",
+        program: "MSc.",
         status: "Completed",
         date: "December 12, 2024",
         message: "Your request has been completed",
+        deadline: "24th August, 2025",
+        comments: [
+          {
+            date: "December 10, 2024",
+            comment: "Completed the recommendation letter.",
+          },
+          {
+            date: "December 9, 2024",
+            comment: "Reviewed the student's academic performance.",
+          },
+        ],
       },
       {
         id: 2,
@@ -72,6 +84,12 @@ const mockData = {
         status: "Pending",
         date: "December 13, 2024",
         message: "Your request was accepted",
+        comments: [
+          {
+            date: "December 11, 2024",
+            comment: "Requested additional documents from the student.",
+          },
+        ],
       },
       {
         id: 3,
@@ -81,6 +99,12 @@ const mockData = {
         status: "Declined",
         date: "December 10, 2024",
         message: "Your request was rejected",
+        comments: [
+          {
+            date: "December 8, 2024",
+            comment: "Unable to proceed with the request due to lack of time.",
+          },
+        ],
       },
       {
         id: 4,
@@ -90,6 +114,12 @@ const mockData = {
         status: "In Progress",
         date: "December 19, 2024",
         message: "Your request was accepted",
+        comments: [
+          {
+            date: "December 18, 2024",
+            comment: "Accepted the request, preparing the recommendation.",
+          },
+        ],
       },
       {
         id: 5,
@@ -99,6 +129,7 @@ const mockData = {
         status: "Pending",
         date: "December 13, 2024",
         message: "Your request was rejected",
+        comments: [],
       },
       {
         id: 6,
@@ -108,15 +139,27 @@ const mockData = {
         status: "Completed",
         date: "December 20, 2024",
         message: "Your request has been completed",
+        comments: [
+          {
+            date: "December 19, 2024",
+            comment: "Submitted the recommendation to the university.",
+          },
+        ],
       },
       {
         id: 7,
         professor: "Prof. Funmi Adeyemi",
         institution: "University of Ilorin",
         department: "Geography",
-        status: "Pending",
+        status: "Declined",
         date: "December 21, 2024",
         message: "Your request was accepted",
+        comments: [
+          {
+            date: "December 20, 2024",
+            comment: "Declined due to the professor's unavailability.",
+          },
+        ],
       },
       {
         id: 8,
@@ -126,6 +169,12 @@ const mockData = {
         status: "In Progress",
         date: "December 22, 2024",
         message: "Your request is in progress",
+        comments: [
+          {
+            date: "December 21, 2024",
+            comment: "Accepted the request, currently drafting the letter.",
+          },
+        ],
       },
       {
         id: 9,
@@ -135,6 +184,12 @@ const mockData = {
         status: "Completed",
         date: "December 23, 2024",
         message: "Your request has been completed",
+        comments: [
+          {
+            date: "December 22, 2024",
+            comment: "Successfully completed the recommendation.",
+          },
+        ],
       },
       {
         id: 10,
@@ -144,6 +199,7 @@ const mockData = {
         status: "Pending",
         date: "December 24, 2024",
         message: "Your request was accepted",
+        comments: [],
       },
       {
         id: 11,
@@ -153,6 +209,12 @@ const mockData = {
         status: "In Progress",
         date: "December 25, 2024",
         message: "Your request is in progress",
+        comments: [
+          {
+            date: "December 24, 2024",
+            comment: "Started preparing the recommendation.",
+          },
+        ],
       },
       {
         id: 12,
@@ -162,6 +224,12 @@ const mockData = {
         status: "Completed",
         date: "December 26, 2024",
         message: "Your request has been completed",
+        comments: [
+          {
+            date: "December 25, 2024",
+            comment: "Submitted the recommendation for History.",
+          },
+        ],
       },
       {
         id: 13,
@@ -171,6 +239,7 @@ const mockData = {
         status: "Pending",
         date: "December 27, 2024",
         message: "Your request was accepted",
+        comments: [],
       },
       {
         id: 14,
@@ -180,6 +249,12 @@ const mockData = {
         status: "In Progress",
         date: "December 28, 2024",
         message: "Your request is in progress",
+        comments: [
+          {
+            date: "December 27, 2024",
+            comment: "Working on the recommendation for Philosophy.",
+          },
+        ],
       },
     ],
   },

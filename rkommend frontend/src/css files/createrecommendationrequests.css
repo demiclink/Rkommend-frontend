@@ -127,6 +127,9 @@ body {
   background-color: #e7e7e7;
 }
 
+.edu-record {
+  width: 100%;
+}
 .createrecreq__process {
   display: flex;
   width: 900px;
@@ -166,11 +169,12 @@ body {
   margin-top: 16px;
 }
 
-form {
+.createrecreq--form {
   display: flex;
+  flex-direction: column;
 }
 
-form div {
+.createrecreq--form div {
   width: 100%;
   display: flex;
   flex-direction: column;
