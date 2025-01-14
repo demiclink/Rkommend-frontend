@@ -1,0 +1,79 @@
+.ld-headerdiv {
+  position: fixed;
+  display: flex;
+  height: 80px;
+  width: calc(100% - 64px);
+  border-bottom: 1px solid #e7e7e7;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 99;
+  top: 0;
+  background-color: #ffffff;
+  padding: 0 32px;
+}
+
+.ld-headerdiv__logodiv {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.ld-header__logo {
+  font-size: 20px;
+  color: #0a66c2;
+}
+
+.ld-headerdiv__logodiv--status {
+  border: 1px solid #aeceec;
+  background-color: #deeaf7;
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #0a66c2;
+  font-weight: 500;
+  font-size: 10px;
+  box-sizing: border-box;
+  height: 24px;
+  width: auto;
+}
+
+.ld-headerdiv__homebtn {
+  width: auto;
+  height: 40px;
+  padding: 8px 16px 8px 16px;
+  gap: 8px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.ld-notif__btn {
+  width: auto;
+  padding: 8px 12px;
+  border-radius: 12px;
+  align-items: center;
+  display: flex;
+  background-color: #f6f6f6;
+  border: 1px solid #e7e7e7;
+  color: #1b1b1b;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 8px;
+  position: relative;
+}
+
+.ld-notif__btn--indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  position: absolute;
+  left: -4px;
+  top: -8px;
+  background-color: #0a66c2;
+}

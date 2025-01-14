@@ -1,20 +1,20 @@
 import React from "react";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import { NotificationsNoneRounded } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import "../css files/sd-header.css";
+import "../css files/ld-header.css";
 // import "../css files/ld-home.css";
 
-const SDheader = ({ children }) => {
+const LDheader = () => {
   return (
-    <div className="headerdiv">
-      <div className="headerdiv__logodiv">
+    <div className="ld-headerdiv">
+      <div className="ld-headerdiv__logodiv">
         <Link className="no-underline" to="/">
-          <h5 className="header__logo">Rkommend</h5>
+          <h5 className="ld-header__logo">Rkommend</h5>
         </Link>{" "}
-        <div className="headerdiv__logodiv--status">STUDENT</div>
+        <div className="ld-headerdiv__logodiv--status">STUDENT</div>
       </div>
 
-      <button className="headerdiv__homebtn blue--btn">
+      <button className="ld-headerdiv__homebtn blue--btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="16px"
@@ -27,9 +27,13 @@ const SDheader = ({ children }) => {
         Home
       </button>
 
-      {children}
+      <button className="ld-notif__btn">
+        <div className="ld-notif__btn--indicator"></div>{" "}
+        <NotificationsNoneRounded />
+        Notifications
+      </button>
     </div>
   );
 };
 
-export default SDheader;
+export default LDheader;

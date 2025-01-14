@@ -10,6 +10,7 @@ import Studentsignin from "./pages/studentsignin";
 import SDHome from "./pages/studentsdashboard/sd-home";
 import Createeducationrecord from "./pages/studentsdashboard/createeducationrecord";
 import Createrecommedationrequests from "./pages/studentsdashboard/createrecommedationrequests";
+import LDhome from "./pages/lecturerdashboard/ld-home";
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
           path="/createrecommendationrequests"
           element={<Createrecommedationrequests />}
         />
+        <Route path="/ld-home" element={<LDhome />} />
       </Routes>
     </main>
   );

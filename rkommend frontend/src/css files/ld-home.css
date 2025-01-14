@@ -1,0 +1,347 @@
+body {
+  font-family: "Inter";
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* width: 100vw; */
+}
+
+.ld-main-body {
+  margin-top: 80px;
+  background-color: #ffffff;
+  width: 100%;
+  padding: 32px;
+  box-sizing: border-box;
+  display: flex;
+  gap: 32px;
+  height: auto;
+}
+
+.ld-first-div,
+.ld-second-div,
+.ld-third-div {
+  box-sizing: border-box;
+  /* background-color: orange; */
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.profile-div {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(180deg, #deeaf7 0%, #ffffff 100%);
+}
+
+.profilediv__greetings--div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profilediv__details--div {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+}
+
+.viewfullprofile__btn {
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px;
+  width: auto;
+  font-size: 14px;
+}
+
+.profilediv__details--biodata {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-grow: 1;
+  overflow-wrap: break-word;
+  flex-grow: 0;
+}
+
+.biodata--img {
+  width: 48px;
+  height: 48px;
+  background-color: blue;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.profilediv__details--availability {
+  flex-grow: 1;
+  font-size: 10px;
+  font-weight: 500;
+  border-radius: 12px;
+  width: auto;
+  padding: 4px 8px;
+  background-color: #1db95433;
+  border: 1px solid #1db954;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  justify-content: center;
+}
+
+.availability--indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1db954;
+}
+
+.profilediv__toggleavail--div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toggleavail__switch {
+  height: 24px;
+  width: 40px;
+  border-radius: 30px;
+  background-color: #0a66c2;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+}
+
+.toggleavail__switch--btn {
+  width: 19px;
+  height: 19px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: absolute;
+  /* left: 3px; */
+  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.toggleavail__switch--btn.available {
+  right: 3px;
+}
+
+/* comprec */
+.comprec,
+.archived {
+  display: flex;
+  background-color: #f6f6f6;
+  border: 1px solid #e7e7e7;
+  padding: 24px 32px;
+  border-radius: 12px;
+  justify-content: space-between;
+  margin: 6px 0;
+  align-items: center;
+  cursor: pointer;
+}
+
+.comprec__container,
+.archived__container {
+  color: #717171;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.archived__container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.comprec__counter {
+  font-size: 34px;
+  font-weight: 700;
+  color: #1b1b1b;
+}
+
+.linediv {
+  height: 1px;
+  width: 100%;
+  background-color: #e7e7e7;
+}
+
+.ld-first-btm {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 32px;
+  padding-bottom: 32px;
+}
+
+/* ld-second-div */
+/* ld-third-div */
+.ld-second-div,
+.ld-third-div {
+  background-color: #f6f6f6;
+  border: 1px solid #e7e7e7;
+  flex-grow: 1;
+  border-radius: 12px;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.inprogress__header--container,
+.recreq__header--container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.inprogress__header,
+.recreq__header {
+  font-weight: 600;
+}
+
+.inprogress__header--div,
+.recreq__header--div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inprogress__header--container p,
+.recreq__header--container p {
+  font-weight: 400;
+  color: #717171;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
+.inprogress__header--counter,
+.recreq__header--counter {
+  background-color: #1db954;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.recreq__header--counter {
+  background-color: #ffae00;
+}
+
+.recreq__date--header {
+  font-size: 12px;
+  color: #9b9b9b;
+  font-weight: 500;
+}
+
+.inprogressitem,
+.recreqitem {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  gap: 4px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.inprogress__body,
+.recreq__body {
+  overflow-y: scroll;
+}
+
+.inprogress__body ul,
+.recreq__body ul {
+  list-style: none;
+  padding: 0;
+}
+
+.recreqitem-li {
+  margin-bottom: 8px;
+}
+.inprogress__details,
+.recreq__details {
+  display: flex;
+  gap: 8px;
+}
+
+.inprogress__details--img,
+.recreq__details--img {
+  width: 40px;
+  height: 40px;
+  background-color: #0a66c2;
+  border-radius: 50%;
+}
+
+.inprogress__details--name,
+.inprogress__details--inst,
+.recreq__details--name,
+.recreq__details--inst {
+  margin: 0;
+}
+
+.inprogress__details--name,
+.recreq__details--name {
+  color: #1b1b1b;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.inprogress__details--inst,
+.recreq__details--inst {
+  font-size: 12px;
+  font-weight: 500;
+  color: #9b9b9b;
+}
+
+.inprogressitem__deadline--div {
+  background-color: #444444;
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: #9b9b9b;
+  margin-top: 4px;
+  font-size: 10px;
+  width: 115px;
+}
+
+.inprogressitem__deadline--div span {
+  color: #ffffff;
+}
+
+/* side menu */
+.editprofiledetails {
+  /* height: 100vh; */
+  top: 0;
+  bottom: 0;
+  width: 400px;
+  background-color: #ffffff;
+  position: fixed;
+  right: 0;
+  z-index: 101;
+  box-sizing: border-box;
+  transform: translateX(100%);
+  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  visibility: hidden;
+}
+
+.editprofiledetails.active {
+  transform: translateX(0px);
+  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  visibility: visible;
+}
+
+/* side menu */

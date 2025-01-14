@@ -84,6 +84,8 @@ const mockData = {
         status: "Pending",
         date: "December 13, 2024",
         message: "Your request was accepted",
+        deadline: "24th August, 2025",
+
         comments: [
           {
             date: "December 11, 2024",
@@ -99,6 +101,8 @@ const mockData = {
         status: "Declined",
         date: "December 10, 2024",
         message: "Your request was rejected",
+        deadline: "24th August, 2025",
+
         comments: [
           {
             date: "December 8, 2024",
@@ -114,6 +118,8 @@ const mockData = {
         status: "In Progress",
         date: "December 19, 2024",
         message: "Your request was accepted",
+        deadline: "23rd August, 2025",
+
         comments: [
           {
             date: "December 18, 2024",
@@ -129,6 +135,8 @@ const mockData = {
         status: "Pending",
         date: "December 13, 2024",
         message: "Your request was rejected",
+        deadline: "23rd August, 2025",
+
         comments: [],
       },
       {
@@ -138,6 +146,8 @@ const mockData = {
         department: "Chemistry",
         status: "Completed",
         date: "December 20, 2024",
+        deadline: "23rd August, 2025",
+
         message: "Your request has been completed",
         comments: [
           {
@@ -154,6 +164,8 @@ const mockData = {
         status: "Declined",
         date: "December 21, 2024",
         message: "Your request was accepted",
+        deadline: "24th August, 2025",
+
         comments: [
           {
             date: "December 20, 2024",
@@ -169,6 +181,8 @@ const mockData = {
         status: "In Progress",
         date: "December 22, 2024",
         message: "Your request is in progress",
+        deadline: "24th August, 2025",
+
         comments: [
           {
             date: "December 21, 2024",
@@ -184,6 +198,8 @@ const mockData = {
         status: "Completed",
         date: "December 23, 2024",
         message: "Your request has been completed",
+        deadline: "24th August, 2025",
+
         comments: [
           {
             date: "December 22, 2024",
@@ -199,6 +215,8 @@ const mockData = {
         status: "Pending",
         date: "December 24, 2024",
         message: "Your request was accepted",
+        deadline: "24th August, 2025",
+
         comments: [],
       },
       {
@@ -207,6 +225,8 @@ const mockData = {
         institution: "University of Calabar",
         department: "Economics",
         status: "In Progress",
+        deadline: "24th August, 2025",
+
         date: "December 25, 2024",
         message: "Your request is in progress",
         comments: [
@@ -222,6 +242,8 @@ const mockData = {
         institution: "University of Ibadan",
         department: "History",
         status: "Completed",
+        deadline: "24th August, 2025",
+
         date: "December 26, 2024",
         message: "Your request has been completed",
         comments: [
@@ -236,6 +258,8 @@ const mockData = {
         professor: "Prof. Olamide Adebisi",
         institution: "University of Ibadan",
         department: "Literature",
+        deadline: "24th August, 2025",
+
         status: "Pending",
         date: "December 27, 2024",
         message: "Your request was accepted",
@@ -249,6 +273,8 @@ const mockData = {
         status: "In Progress",
         date: "December 28, 2024",
         message: "Your request is in progress",
+        deadline: "24th August, 2025",
+
         comments: [
           {
             date: "December 27, 2024",

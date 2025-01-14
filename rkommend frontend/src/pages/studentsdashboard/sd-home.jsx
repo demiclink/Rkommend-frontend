@@ -29,7 +29,7 @@ const SDHome = () => {
     fetchMockData().then((data) => {
       setUser(data); // Store fetched data in state
     });
-  }, []); // Added empty dependency array to run once
+  }, []);
 
   // Set the time of day greeting
   useEffect(() => {
