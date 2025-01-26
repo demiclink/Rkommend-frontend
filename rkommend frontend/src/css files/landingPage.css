@@ -18,20 +18,22 @@ button {
   font-size: 24px;
   position: fixed;
   display: flex;
-  height: 100px;
+  height: 80px;
   padding: 0px 64px;
   justify-content: space-between;
   align-items: center;
   width: calc(100% - 128px);
   flex-direction: row;
   z-index: 99;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
 }
 
 .header__logo {
   color: #0a66c2;
   cursor: pointer;
   text-decoration: none;
+  margin: 0;
 }
 
 .header__btns {
@@ -42,10 +44,10 @@ button {
 }
 
 .header__btns--signin,
-.blue.btn-- {
+.btn--blue {
   padding: 12px 24px;
-  height: 48px;
-  width: 105px;
+  /* height: 48px; */
+  /* width: 105px; */
   border-style: none;
   background: none;
 }
@@ -208,10 +210,14 @@ button {
   width: 700px;
   height: 400px;
   position: relative;
+  transition: all 0.3s ease-in-out;
+  align-items: center;
+  display: flex;
+  margin-top: 50px;
 }
 
 .selectUni {
-  height: 400px;
+  height: 350px;
   width: 600px;
   border-radius: 12px;
   background-color: #ffffff;
@@ -221,7 +227,7 @@ button {
 }
 
 .selectDept {
-  height: 400px;
+  height: 350px;
   width: 600px;
   border-radius: 12px;
   background-color: #f6f6f6;
@@ -232,7 +238,7 @@ button {
 }
 
 .selectLect {
-  height: 400px;
+  height: 350px;
   width: 600px;
   border-radius: 12px;
   background-color: #1b1b1b;
@@ -248,10 +254,18 @@ button {
 .selectDept,
 .selectLect {
   position: absolute;
-  width: 100%;
+  /* width: 100%; */
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   /* opacity: 0; */
   /* transform: translateY(10px); */
+}
+
+.stacked {
+  height: 325px;
+}
+
+.double-stacked {
+  height: 300px;
 }
 
 .selectUni.active,

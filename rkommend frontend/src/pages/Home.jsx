@@ -86,8 +86,12 @@ const LandingPage = () => {
 
           <div className="howitworkscard">
             {/* Step 1: Select University */}
-            {step === 1 && (
-              <div className="selectUni">
+            {(step === 1 || step === 2 || step === 3) && (
+              <div
+                className={`selectUni ${
+                  step === 2 || step === 3 ? "stacked" : ""
+                } ${step === 3 ? "double-stacked" : ""}`}
+              >
                 <h3>Select your university</h3>
                 <label htmlFor="uniinput">University</label>
                 <div className="Uniinputcover">
@@ -112,8 +116,8 @@ const LandingPage = () => {
             )}
 
             {/* Step 2: Select Department */}
-            {step === 2 && (
-              <div className="selectDept">
+            {(step === 2 || step === 3) && (
+              <div className={`selectDept ${step === 3 ? "stacked" : ""}`}>
                 <div className="selectDept--div__header">
                   <ChevronLeftRoundedIcon
                     className="arrow-icon"
@@ -186,9 +190,9 @@ const LandingPage = () => {
                   </div>
                 </div>
 
-                <div className="selectdept--btndiv">
+                <Link to="/accountType" className="no-underline">
                   <button className="selectdept--btn btn--blue">Sign Up</button>
-                </div>
+                </Link>
               </div>
             )}
           </div>

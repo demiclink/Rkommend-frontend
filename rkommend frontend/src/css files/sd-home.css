@@ -626,10 +626,6 @@ body {
   align-items: center;
 }
 
-.editeducationrecord__form form {
-  /* margin-bottom: 40px; */
-}
-
 .editeducationrecord__form form div {
   width: 100%;
 }
@@ -712,6 +708,8 @@ body {
   flex-direction: column;
   gap: 16px;
   padding: 32px;
+  overflow-y: scroll;
+  height: 90%;
 }
 
 .editprofiledetails__header-rect {
@@ -766,9 +764,15 @@ body {
   color: #1b1b1b;
 }
 
-.editprofiledetails__form input,
-.editprofiledetails__form select {
-  height: 20px;
+.editprofiledetails__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.editprofiledetails__form--input {
+  display: flex;
+  flex-direction: column;
 }
 
 .editprofiledetails__titleandfirstname {

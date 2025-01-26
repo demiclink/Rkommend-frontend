@@ -8,11 +8,7 @@ import { KeyboardArrowDownRounded } from "@mui/icons-material";
 import { fetchMockData } from "../mockData";
 import { EastRounded } from "@mui/icons-material";
 
-const Ldsidemenu = ({
-  className,
-  selectedRequest,
-  viewSubmittedRequestsPage,
-}) => {
+const Ldsidemenu = ({ className, selectedRequest, close }) => {
   const [user, setUser] = useState(null);
 
   // Fetch mock data
@@ -22,150 +18,204 @@ const Ldsidemenu = ({
     });
   }, []);
 
+  const [recState, setRecState] = useState("");
+
+  const toggleRecState = (state) => {
+    setRecState(state);
+  };
+
+  const [completed, setCompleted] = useState(false);
+
+  const toggleCompleted = () => {
+    setCompleted(!completed);
+    console.log(completed);
+  };
+
   return (
-    <div className={className}>
-      <div className="reqdetails__main">
-        <div className="backbtn" onClick={viewSubmittedRequestsPage}>
-          <KeyboardArrowLeftRounded />
-          Back
-        </div>
-        {/* <div className="reqdetails__headerdiv">
-          <div className="reqdetails__headerdiv--top">
-            REQUEST
-            <div
-              className="headerdiv--top--indicator"
-              style={{
-                backgroundColor:
-                  selectedRequest.status === "Pending"
-                    ? "#FFAE00"
-                    : selectedRequest.status === "In Progress"
-                    ? "#1DB954"
-                    : selectedRequest.status === "Completed"
-                    ? "#04294E"
-                    : selectedRequest.status === "Declined"
-                    ? "#717171"
-                    : "",
-              }}
-            >
-              {" "}
-              {selectedRequest.status}
-            </div>
+    selectedRequest && (
+      <div className={className}>
+        <div className="reqdetails__main">
+          <div className="backbtn" onClick={close}>
+            <KeyboardArrowLeftRounded />
+            Back
           </div>
-          <div
-            className={`reqdetails__headerdiv--status ${
-              selectedRequest.status === "Completed" ? "Completed" : ""
-            }  ${selectedRequest.status === "Declined" ? "Declined" : ""}`}
-          >
-            {selectedRequest.status === "Pending" &&
-              "Your request is pending acceptance or rejection"}
+          <div className="reqdetails__headerdiv recommendreq__headerdiv">
+            <div className="reqdetails__headerdiv--top recommendreq__headerdiv">
+              {recState === "accept" && (
+                <>
+                  <div className="recommendreq__headerdiv--accept">
+                    <div className="recommendreq__headerdiv--recstatus">
+                      RECOMMENDATION STATUS
+                      <div
+                        className="recstatus--indicator"
+                        style={{
+                          backgroundColor: completed ? "#04294E" : "#1DB954",
+                        }}
+                      >
+                        {completed ? "COMPLETED" : "IN PROGRESS"}
+                      </div>{" "}
+                    </div>
+                    <div className="recommendreq__headerdiv--switch">
+                      MOVE TO COMPLETED
+                      <div
+                        className="toggleavail__switch"
+                        onClick={toggleCompleted}
+                        style={{
+                          backgroundColor: completed ? "#0A66C2" : "#717171",
+                        }}
+                      >
+                        <div
+                          className={`toggleavail__switch--btn ${
+                            completed ? "available" : ""
+                          }`}
+                        ></div>
+                      </div>
+                    </div>
 
-            {selectedRequest.status === "In Progress" &&
-              "Your request is accepted but not completed"}
-
-            {selectedRequest.status === "Completed" && (
-              <div className="completedRequest">
-                <div className="completedRequest__Vector">
-                  <img src="star.png" alt="" />
-                </div>
-                <div className="completedRequest__text">
-                  Recommendation completed!
-                </div>
-              </div>
-            )}
-
-            {selectedRequest.status === "Declined" && (
-              <div className="declinedRequest">
-                <div className="declinedRequest__Vector">
-                  <img src="safe.png" alt="" />
-                </div>
-                <div className="declinedRequest__textandbtn">
-                  <div className="declinedRequest__text">
-                    Recommendation declined
+                    {completed && (
+                      <div className="completedRequest completedRec">
+                        <div className="completedRequest__Vector">
+                          <img src="star.png" alt="" />
+                        </div>
+                        <div className="completedRequest__text completedRec__text ">
+                          You have completed this recommendation!{" "}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <Link
-                    to={"/createrecommendationrequests"}
-                    className="no-underline"
-                  >
-                    <button className="resubmit">
-                      Edit and resubmit <EastRounded />
+                </>
+              )}
+              {recState === "" && (
+                <>
+                  <p>RECOMMENDATION REQUEST</p>
+                  <div className="recommendreq__headerdiv--btns">
+                    <button
+                      onClick={() => toggleRecState("accept")}
+                      className="recommendreq__headerdiv--acceptbtn"
+                    >
+                      Accept
                     </button>
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-        </div> */}
+                    <button
+                      onClick={() => toggleRecState("declined")}
+                      className="recommendreq__headerdiv--declinebtn"
+                    >
+                      Decline
+                    </button>
+                  </div>
+                </>
+              )}
 
-        <div className="reqdetails__sec">
-          <div className="reqdetails__uniandprogramanddeadline">
-            <h4 className="reqdetails__header">Recommendation for</h4>
-
-            <div>
-              <label htmlFor="reqdetails__university">University</label>
-              {/* <p>{selectedRequest.institution}</p> */}
-            </div>
-            <div>
-              <label htmlFor="reqdetails__program">Program</label>
-              {/* <p> {selectedRequest.program}</p> */}
-            </div>
-            <div>
-              <label htmlFor="reqdetails__deadline">Deadline</label>
-              {/* <p> {selectedRequest.deadline}</p> */}
+              {recState === "declined" && (
+                <>
+                  <p>RECOMMENDATION REQUEST</p>
+                </>
+              )}
             </div>
           </div>
-          <div className="reqdetails__lectslctd">
-            <h6>FROM</h6>
-            <div className="reqdetails__lectslctd--imgdiv">
-              <div className="lectslctd__img"></div>
-              <p className="lectslctd--name">
-                {/* {selectedRequest.professor} */}
-              </p>
-            </div>
-            <div className="lectslctd__instanddept">
-              <div>
-                <label htmlFor="lectslctd__lecturerInstitution">
-                  Institution
-                </label>
-                {/* {selectedRequest.institution} */}
-              </div>
-              <div>
-                <label htmlFor="lectslctd__lecturerDepartment">
-                  Department
-                </label>
-                {/* {selectedRequest.department} */}
-              </div>
-            </div>
-          </div>
-          <div className="reqdetails__background">
-            <h6>YOUR BACKGROUND</h6>
 
-            {selectedRequest ? (
-              <ul>
-                <div className="reqdetails__list">
+          <div className="reqdetails__sec">
+            {(recState === "accept" || recState === "") && (
+              <>
+                <div className="reqdetails__uniandprogramanddeadline">
+                  <h4 className="reqdetails__header">Recommendation for</h4>
+
                   <div>
-                    <div className="list__img">
-                      <SchoolRounded className="list__img--icon" />
+                    <label htmlFor="reqdetails__university">University</label>
+                    <p>{selectedRequest.institution}</p>
+                  </div>
+                  <div>
+                    <label htmlFor="reqdetails__program">Program</label>
+                    <p> {selectedRequest.program}</p>
+                  </div>
+                  <div>
+                    <label htmlFor="reqdetails__deadline">Deadline</label>
+                    <p> {selectedRequest.deadline}</p>
+                  </div>
+                </div>
+
+                <div className="reqdetails__lectslctd">
+                  <h6>FROM</h6>
+                  <div className="reqdetails__lectslctd--imgdiv">
+                    <div className="lectslctd__img"></div>
+                    <p className="lectslctd--name">
+                      {selectedRequest.professor}
+                    </p>
+                  </div>
+                  <div className="lectslctd__instanddept">
+                    <div>
+                      <label htmlFor="lectslctd__lecturerInstitution">
+                        Institution
+                      </label>
+                      {selectedRequest.institution}
                     </div>
-                    <div className="list__unidetails">
-                      <div className="unidetails__name">
-                        {/* {selectedRequest.institution} */}
-                      </div>
-                      <div className="unidetails__department">
-                        {/* {selectedRequest.department} */}
-                      </div>
+                    <div>
+                      <label htmlFor="lectslctd__lecturerDepartment">
+                        Department
+                      </label>
+                      {selectedRequest.department}
                     </div>
                   </div>
-
-                  <KeyboardArrowDownRounded />
                 </div>
-              </ul>
-            ) : (
-              ""
-            )}
-          </div>
+                <div className="reqdetails__background">
+                  <h6>YOUR BACKGROUND</h6>
 
-          {/* Display Comments */}
-          {/* {selectedRequest && (
+                  {selectedRequest ? (
+                    <ul>
+                      <div className="reqdetails__list">
+                        <div>
+                          <div className="list__img">
+                            <SchoolRounded className="list__img--icon" />
+                          </div>
+                          <div className="list__unidetails">
+                            <div className="unidetails__name">
+                              {selectedRequest.institution}
+                            </div>
+                            <div className="unidetails__department">
+                              {selectedRequest.department}
+                            </div>
+                          </div>
+                        </div>
+
+                        <KeyboardArrowDownRounded />
+                      </div>
+                    </ul>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </>
+            )}
+
+            {recState === "declined" && (
+              <>
+                <div className="declinedRequest">
+                  <div className="declinedRequest__Vector">
+                    <img src="safe.png" alt="" />
+                  </div>
+                  <div className="declinedRequest__textandbtn">
+                    <div className="declinedRequest__text declinedRec__text">
+                      You declined this recommendation request{" "}
+                    </div>
+
+                    <p className="declinedRequest__sub">Request now archived</p>
+                  </div>
+                </div>
+
+                <div className="undo">
+                  If this was a mistake{" "}
+                  <span>
+                    <button
+                      onClick={() => toggleRecState("")}
+                      className="undo__btn"
+                    >
+                      Undo
+                    </button>
+                  </span>
+                </div>
+              </>
+            )}
+
+            {/* Display Comments */}
             <div className="reqdetails__comments">
               <h3 className="reqdetails__comments--header">Comments</h3>
               {selectedRequest.comments &&
@@ -188,10 +238,10 @@ const Ldsidemenu = ({
                 <p>No comments here yet</p>
               )}
             </div>
-          )} */}
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 

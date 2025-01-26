@@ -1,10 +1,15 @@
 const mockData = {
   student: {
     name: "Dr. Adamu Joshua",
+    title: "Dr.",
+    firstname: "Joshua",
+    lastname: "Adamu",
     greeting: "Good morning",
     date: "Tuesday, December 28, 2023",
     email: "dadamujosh99@yahoo.com",
     phonenumber: "+2349012345678",
+    institution: "University of Ilorin",
+    department: "Performing Arts",
     reqavail: 0,
     checkout: "failed",
   },

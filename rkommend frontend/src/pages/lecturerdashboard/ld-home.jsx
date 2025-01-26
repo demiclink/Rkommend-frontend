@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import LDheader from "../../components/ldheader";
-import { NotificationsNoneRounded } from "@mui/icons-material";
 import "../../css files/ld-home.css";
 import { LightModeSharp } from "@mui/icons-material";
 import { EastRounded } from "@mui/icons-material";
@@ -9,17 +8,29 @@ import { ArchiveRounded } from "@mui/icons-material";
 import { LogoutRounded } from "@mui/icons-material";
 import { fetchMockData } from "../../mockData";
 import Ldsidemenu from "../../components/ldsidemenu";
+import Ldarchivedrequests from "../../components/ldarchivedrequests";
+import Ldcomprec from "../../components/ldcomprec";
+import Ldprofile from "../../components/ldprofile";
+import Ldeditprofile from "../../components/ld-editprofile";
+
+import { KeyboardArrowLeftRounded } from "@mui/icons-material";
 
 const LDhome = () => {
   const [timeofday, setTimeOfDay] = useState("");
   const [currentDate, setCurrentDate] = useState("");
   const [availability, setAvailability] = useState(true);
   const [user, setUser] = useState(null);
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+  const [isArchivedMenuOpen, setIsArchivedMenuOpen] = useState(false);
+  const [isCompletedRecOpen, setIsCompletedRecOpen] = useState(false);
+  const [isBlackOverlayVisible, setIsBlackOverlayVisible] = useState(false);
+  const [isProfileDetailsOpen, setIsProfileDetails] = useState(false);
+  const [isEditDetailsOpen, setIsEditDetailsOpen] = useState(false);
 
   // toggle availability
   const toggleAvailability = () => {
     setAvailability(!availability);
-    console.log(availability);
   };
 
   // Set the time of day greeting
@@ -54,9 +65,53 @@ const LDhome = () => {
     });
   }, []);
 
+  // Handle click on an in-progress request
+  const handleRequestClick = (request) => {
+    setSelectedRequest(request);
+    setIsSideMenuOpen(!isSideMenuOpen);
+    setIsBlackOverlayVisible(!isBlackOverlayVisible);
+  };
+
+  const handleBlackOverlay = () => {
+    setIsBlackOverlayVisible(false);
+    setIsSideMenuOpen(false);
+    setIsArchivedMenuOpen(false);
+    setIsCompletedRecOpen(false);
+    setIsProfileDetails(false);
+    setIsEditDetailsOpen(false);
+  };
+
+  const toggleArchive = () => {
+    setIsArchivedMenuOpen(!isArchivedMenuOpen);
+    setIsBlackOverlayVisible(!isBlackOverlayVisible);
+  };
+
+  const toggleCompRec = () => {
+    setIsCompletedRecOpen(!isCompletedRecOpen);
+    setIsBlackOverlayVisible(!isBlackOverlayVisible);
+  };
+
+  const toggleProfileDetails = () => {
+    setIsProfileDetails(!isProfileDetailsOpen);
+    setIsBlackOverlayVisible(!isBlackOverlayVisible);
+  };
+
+  const toggleEditDetails = () => {
+    setIsEditDetailsOpen(!isEditDetailsOpen);
+    setIsBlackOverlayVisible(true);
+    setIsProfileDetails(!isProfileDetailsOpen);
+  };
+
   return (
     <div>
       <LDheader></LDheader>
+      <div
+        onClick={handleBlackOverlay}
+        className={`ldblackoverlay ${
+          isBlackOverlayVisible ? "ldblackoverlay__visible" : ""
+        }`}
+      ></div>
+
       <div className="ld-main-body">
         <div className="ld-first-div">
           <div className="profile-div">
@@ -65,7 +120,10 @@ const LDhome = () => {
                 <LightModeSharp />
                 {timeofday}
               </div>
-              <button className="viewfullprofile__btn">
+              <button
+                className="viewfullprofile__btn"
+                onClick={toggleProfileDetails}
+              >
                 Full Profile <EastRounded />{" "}
               </button>
             </div>
@@ -117,16 +175,22 @@ const LDhome = () => {
             </div>
           </div>
 
-          <div className="comprec">
+          <div className="comprec" onClick={toggleCompRec}>
             <div className="comprec__container">
               <div className="comprec__header">COMPLETED RECOMMEDATIONS</div>
-              <div className="comprec__counter">50</div>
+              <div className="comprec__counter">
+                {user &&
+                  user.requests &&
+                  user.requests.requestsList.filter(
+                    (completedreq) => completedreq.status === "Completed"
+                  ).length}
+              </div>
             </div>
 
             <KeyboardArrowRightRounded />
           </div>
 
-          <div className="archived">
+          <div className="archived" onClick={toggleArchive}>
             <div className="archived__container">
               <ArchiveRounded></ArchiveRounded>
               <div className="archived__text">Archived</div>
@@ -169,7 +233,10 @@ const LDhome = () => {
                   inprogress.status === "In Progress" && (
                     <ul key={inprogress.id}>
                       <li>
-                        <div className="inprogressitem">
+                        <div
+                          className="inprogressitem"
+                          onClick={() => handleRequestClick(inprogress)}
+                        >
                           <div className="inprogressitem__container">
                             <div className="inprogress__details">
                               <div className="inprogress__details--img"></div>
@@ -261,7 +328,40 @@ const LDhome = () => {
           </div>
         </div>
       </div>
-      <Ldsidemenu className={"side__menu"}></Ldsidemenu>
+      <Ldsidemenu
+        className={`side__menu ${isSideMenuOpen ? "open" : ""}`}
+        selectedRequest={selectedRequest}
+        close={() => {
+          setIsSideMenuOpen(false);
+          setIsBlackOverlayVisible(false);
+          recState === "accept" ? `${recState === ""}` : "";
+        }}
+      ></Ldsidemenu>
+
+      <Ldarchivedrequests
+        className={`archivedReq ${isArchivedMenuOpen ? "open" : ""} `}
+        close={() => {
+          setIsArchivedMenuOpen(false), setIsBlackOverlayVisible(false);
+        }}
+      ></Ldarchivedrequests>
+
+      <Ldcomprec
+        className={`completedrec ${isCompletedRecOpen ? "open" : ""} `}
+        close={() => {
+          setIsCompletedRecOpen(false), setIsBlackOverlayVisible(false);
+        }}
+      ></Ldcomprec>
+
+      <Ldprofile
+        className={`profile__sidemenu ${isProfileDetailsOpen ? "open" : ""}`}
+        availability={availability}
+        toggleAvailability={toggleAvailability}
+        toggleEditDetails={toggleEditDetails}
+      ></Ldprofile>
+
+      <Ldeditprofile
+        className={`edit-profile__sidemenu ${isEditDetailsOpen ? "open" : ""}`}
+      ></Ldeditprofile>
     </div>
   );
 };

@@ -11,6 +11,8 @@ import SDHome from "./pages/studentsdashboard/sd-home";
 import Createeducationrecord from "./pages/studentsdashboard/createeducationrecord";
 import Createrecommedationrequests from "./pages/studentsdashboard/createrecommedationrequests";
 import LDhome from "./pages/lecturerdashboard/ld-home";
+import Notifications from "./pages/lecturerdashboard/notifications";
+import Admindashboard from "./pages/admindashboard/admin-dashboard";
 
 const App = () => {
   return (
@@ -38,7 +40,12 @@ const App = () => {
           path="/createrecommendationrequests"
           element={<Createrecommedationrequests />}
         />
-        <Route path="/ld-home" element={<LDhome />} />
+        <Route path="/home-lecturer" element={<LDhome />} />
+        <Route
+          path="/home-lecturer-notifications"
+          element={<Notifications />}
+        />
+        <Route path="/admin-dashboard" element={<Admindashboard />} />
       </Routes>
     </main>
   );

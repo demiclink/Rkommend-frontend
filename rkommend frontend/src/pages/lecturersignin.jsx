@@ -36,10 +36,12 @@ const LecturerSignin = () => {
               />
             </div>
 
-            <button className="signinForm__btn blue--btn">
-              Sign in
-              <EastRoundedIcon />
-            </button>
+            <Link className="no-underline" to={"/home-lecturer"}>
+              <button className="signinForm__btn blue--btn">
+                Sign in
+                <EastRoundedIcon />
+              </button>
+            </Link>
           </div>
         </div>
         <Footer></Footer>
