@@ -9,7 +9,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { fetchAdminMockData } from "../../adminMockData";
 import { KeyboardArrowRightRounded } from "@mui/icons-material";
 import Addinstitutionsidemenu from "../../components/admin-addinstitution";
-// import Adminsidemenu from ".../../components/admin-sidemenu";
+import SidemenuAdmin from "../../components/admin-sidemenu";
 
 const Admindashboard = () => {
   const [user, setUser] = useState(null);
@@ -34,18 +34,19 @@ const Admindashboard = () => {
   };
 
   const toggleBlackOverlayVisible = () => {
-    setIsBlackOverlayVisible(false);
+    setIsBlackOverlayVisible(!isBlackOverlayVisible);
     setIsSideMenuOpen(false);
-    // toggleAddInstitutionOpen(false);
+    toggleAddInstitutionOpen(false);
   };
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
+    setIsBlackOverlayVisible(!isBlackOverlayVisible);
   };
 
   const toggleAddInstitutionOpen = () => {
     setIsAddInstitutionOpen(!isAddInstitutionOpen);
-    console.log(isAddInstitutionOpen);
+    setIsBlackOverlayVisible(!isBlackOverlayVisible);
   };
 
   // Set date
@@ -76,20 +77,19 @@ const Admindashboard = () => {
             isBlackOverlayVisible ? "adminblackoverlay__visible" : ""
           }`}
         ></div>
-        {/* <Adminsidemenu
+        <SidemenuAdmin
           className={`side__menu--admin ${isSideMenuOpen ? "open" : ""}`}
           selectedRequest={selectedRequest}
           close={() => {
             setIsSideMenuOpen(false);
             setIsBlackOverlayVisible(false);
           }}
-        ></Adminsidemenu> */}
+        ></SidemenuAdmin>
 
         <Addinstitutionsidemenu
-          className={`side__menu--institution ${
+          className2={`side__menu--institution ${
             isAddInstitutionOpen ? "open" : ""
           }`}
-          selectedRequest={selectedRequest}
           close={() => {
             setIsAddInstitutionOpen(false);
             setIsBlackOverlayVisible(false);
@@ -365,7 +365,7 @@ const Admindashboard = () => {
                     <h2>Institutions</h2>
                     <button
                       className="institution--header--btn"
-                      onClick={toggleAddInstitutionOpen}
+                      onClick={() => toggleAddInstitutionOpen()}
                     >
                       Add Institution +
                     </button>
@@ -466,7 +466,7 @@ const Admindashboard = () => {
                             <th></th>
                           </tr>
                         </thead>
-                        <tbody className="__table--body">
+                        <tbody className="activerequests__table--body">
                           {user &&
                             user.universities.map((institution) => (
                               <tr

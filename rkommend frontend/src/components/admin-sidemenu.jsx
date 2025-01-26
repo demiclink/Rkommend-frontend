@@ -8,6 +8,7 @@ import { fetchAdminMockData } from "../adminMockData";
 
 const SidemenuAdmin = ({ className, selectedRequest, close, row }) => {
   const [user, setUser] = useState(null);
+  const [completed, setCompleted] = useState(false);
 
   // Fetch mock data
   useEffect(() => {
