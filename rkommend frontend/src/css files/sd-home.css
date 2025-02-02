@@ -626,8 +626,14 @@ body {
   align-items: center;
 }
 
+.editeducationrecord__form form {
+  display: flex;
+  flex-direction: column;
+}
+
 .editeducationrecord__form form div {
   width: 100%;
+  display: flex;
 }
 
 .editprofiledetails__form input,

@@ -6,7 +6,7 @@ import "../css files/viewreq.css";
 import { KeyboardArrowDownRounded } from "@mui/icons-material";
 import { fetchAdminMockData } from "../adminMockData";
 
-const SidemenuAdmin = ({ className, selectedRequest, close, row }) => {
+const SidemenuAdmin = ({ className, selectedRequest, close }) => {
   const [user, setUser] = useState(null);
   const [completed, setCompleted] = useState(false);
 

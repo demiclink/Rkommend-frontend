@@ -25,6 +25,10 @@ const Admindashboard = () => {
     setSelectedRequest(row);
   };
 
+  const handleSelectedInstitution = (uni) => {
+    setSelectedRequest(uni);
+  };
+
   const toggleSortByOpen = () => {
     setIsSortByOpen(!isSortByOpen);
   };
@@ -79,7 +83,7 @@ const Admindashboard = () => {
         ></div>
         <SidemenuAdmin
           className={`side__menu--admin ${isSideMenuOpen ? "open" : ""}`}
-          selectedRequest={selectedRequest}
+          // selectedRequest={selectedRequest}
           close={() => {
             setIsSideMenuOpen(false);
             setIsBlackOverlayVisible(false);
@@ -365,7 +369,7 @@ const Admindashboard = () => {
                     <h2>Institutions</h2>
                     <button
                       className="institution--header--btn"
-                      onClick={() => toggleAddInstitutionOpen()}
+                      onClick={toggleAddInstitutionOpen}
                     >
                       Add Institution +
                     </button>
@@ -468,17 +472,17 @@ const Admindashboard = () => {
                         </thead>
                         <tbody className="activerequests__table--body">
                           {user &&
-                            user.universities.map((institution) => (
+                            user.universities.map((uni) => (
                               <tr
-                                key={institution.id}
+                                key={uni.id}
                                 onClick={() => {
-                                  handleSelectedRequest(institution);
+                                  handleSelectedInstitution(uni);
                                   toggleBlackOverlayVisible();
                                 }}
                               >
-                                <td>{institution.id}</td>
-                                <td>{institution.name}</td>
-                                <td>{institution.rank}</td>
+                                <td>{uni.id}</td>
+                                <td>{uni.name}</td>
+                                <td>{uni.rank}</td>
                                 <td>
                                   <KeyboardArrowRightRounded></KeyboardArrowRightRounded>
                                 </td>

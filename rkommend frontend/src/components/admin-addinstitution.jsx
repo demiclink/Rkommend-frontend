@@ -10,12 +10,7 @@ import { fetchMockData } from "../mockData";
 import { fetchAdminMockData } from "../adminMockData";
 import { EastRounded } from "@mui/icons-material";
 
-const Addinstitutionsidemenu = ({
-  className2,
-  selectedRequest,
-  close,
-  row,
-}) => {
+const Addinstitutionsidemenu = ({ className2, close }) => {
   const [user, setUser] = useState(null);
 
   // Fetch mock data
