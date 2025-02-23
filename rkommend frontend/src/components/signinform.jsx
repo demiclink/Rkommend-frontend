@@ -9,7 +9,7 @@ const SigninFormVector = ({ Type }) => {
           <h1>{Type}</h1>
         </div>
         <div className="signin__imgdiv">
-          <img className="signin__img" src="note.png" alt="" srcset="" />
+          <img className="signin__img" src="note.png" alt="" srcSet="" />
         </div>
       </div>
     </div>

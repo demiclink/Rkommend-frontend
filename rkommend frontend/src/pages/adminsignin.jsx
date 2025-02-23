@@ -6,6 +6,7 @@ import "../css files/landingPage.css";
 import "../css files/accountType.css";
 
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
+import { signInAsAdmin } from "../lib/api-client";
 
 const AdminSignin = () => {
   const [email, setEmail] = useState("");
@@ -24,32 +25,41 @@ const AdminSignin = () => {
       password,
     };
 
+    //   try {
+    //     const response = await fetch(
+    //       "https://rkommend-server.onrender.com/api/admins/signin",
+    //       {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(credentials),
+    //       }
+    //     );
+
+    //     const data = await response.json();
+
+    //     if (response.ok) {
+    //       console.log("Logged in successfully:", data);
+    //       navigate("/admin-dashboard");
+    //     } else {
+    //       setError(data.message || "Failed to log in");
+    //     }
+    //   } catch (error) {
+    //     setError("An error occurred while logging in");
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
     try {
-      const response = await fetch(
-        "https://rkommend-server.onrender.com/api/admins/signin",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log("Logged in successfully:", data);
-        navigate("/admin-dashboard");
-      } else {
-        setError(data.message || "Failed to log in");
-      }
+      await signInAsAdmin(credentials)
+      setLoading(false)
+      await navigate("/admin-dashboard")
     } catch (error) {
-      setError("An error occurred while logging in");
-    } finally {
-      setLoading(false);
+      setError(error.message || "An error occurred while logging in")
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div>
