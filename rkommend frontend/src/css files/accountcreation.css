@@ -149,7 +149,11 @@ h1 {
 .titlefirstnameandlastname {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 12px;
+}
+
+.titlefirstnameandlastname div {
+  width: 80%;
 }
 
 label {
@@ -186,6 +190,7 @@ select::placeholder {
   /* width: 100%;  */
   flex-direction: row;
   gap: 32px;
+  justify-content: space-between;
 }
 
 .phonediv,
@@ -194,7 +199,7 @@ select::placeholder {
 .confirmpassworddiv,
 .institutiondiv,
 .departmentdiv {
-  /* width: 100%; */
+  width: 100%;
   flex-direction: column;
   display: flex;
 }

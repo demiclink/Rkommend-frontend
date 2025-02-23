@@ -6,10 +6,11 @@ import LocalLibraryRoundedIcon from "@mui/icons-material/LocalLibraryRounded";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SortRoundedIcon from "@mui/icons-material/SortRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { fetchAdminMockData } from "../../adminMockData";
+// import { fetchAdminMockData } from "../../adminMockData";
 import { KeyboardArrowRightRounded } from "@mui/icons-material";
 import Addinstitutionsidemenu from "../../components/admin-addinstitution";
 import SidemenuAdmin from "../../components/admin-sidemenu";
+import Adminheader from "../../components/adminheader";
 
 const Admindashboard = () => {
   const [user, setUser] = useState(null);
@@ -66,15 +67,42 @@ const Admindashboard = () => {
     setCurrentDate(formattedDate);
   }, []);
 
-  //fetchAdminMockData
+  // Fetch data from API
   useEffect(() => {
-    fetchAdminMockData().then((data) => {
-      setUser(data); // Store fetched data in state
-    });
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://rkommend-server.onrender.com/api/lecturers",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        setUser(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  //fetchAdminMockData
+  // useEffect(() => {
+  //   fetchAdminMockData().then((data) => {
+  //     setUser(data);
+  //   });
+  // }, []);
+
   return (
     <>
       <div>
+        <Adminheader></Adminheader>
         <div
           onClick={toggleBlackOverlayVisible}
           className={`adminblackoverlay ${
@@ -82,7 +110,7 @@ const Admindashboard = () => {
           }`}
         ></div>
         <SidemenuAdmin
-          className={`side__menu--admin ${isSideMenuOpen ? "open" : ""}`}
+          className={`side__menu--admin ${isSideMenuOpen ? "opened" : ""}`}
           // selectedRequest={selectedRequest}
           close={() => {
             setIsSideMenuOpen(false);
@@ -176,7 +204,7 @@ const Admindashboard = () => {
                           UNIVERSITIES
                         </div>
                         <div className="overview-numbers--counter">
-                          {user && user.universities.length}
+                          {/* {console.log(user)} */}
                         </div>
                       </div>
                       <div className="overview-numbers departments">
@@ -194,7 +222,7 @@ const Admindashboard = () => {
                         </div>
                         <div className="overview-numbers--counter">
                           {" "}
-                          {user && user.lecturers.length}
+                          {/* {user && user.length} */}
                         </div>
                       </div>
 
@@ -202,7 +230,7 @@ const Admindashboard = () => {
                         <div className="overview-numbers--header">STUDENTS</div>
                         <div className="overview-numbers--counter">
                           {" "}
-                          {user && user.students.length}
+                          {/* {user && user.students.length} */}
                         </div>
                       </div>
                       <div className="overview-numbers created-requests">
@@ -211,7 +239,7 @@ const Admindashboard = () => {
                         </div>
                         <div className="overview-numbers--counter">
                           {" "}
-                          {user && user.createdRequests.length}
+                          {/* {user && user.createdRequests.length} */}
                         </div>
                       </div>
                       <div className="overview-numbers completed-requests">
@@ -220,7 +248,7 @@ const Admindashboard = () => {
                         </div>
                         <div className="overview-numbers--counter">
                           {" "}
-                          {user && user.completedRequests.length}
+                          {/* {user && user.completedRequests.length} */}
                         </div>
                       </div>
                     </div>
@@ -334,7 +362,7 @@ const Admindashboard = () => {
                         </tr>
                       </thead>
                       <tbody className="activerequests__table--body">
-                        {user &&
+                        {/* {user &&
                           user.activeRequests.map((row) => (
                             <tr
                               key={row.id}
@@ -354,7 +382,7 @@ const Admindashboard = () => {
                                 <KeyboardArrowRightRounded></KeyboardArrowRightRounded>
                               </td>
                             </tr>
-                          ))}
+                          ))} */}
                       </tbody>
                     </table>
                   </div>
@@ -471,7 +499,7 @@ const Admindashboard = () => {
                           </tr>
                         </thead>
                         <tbody className="activerequests__table--body">
-                          {user &&
+                          {/* {user &&
                             user.universities.map((uni) => (
                               <tr
                                 key={uni.id}
@@ -487,7 +515,7 @@ const Admindashboard = () => {
                                   <KeyboardArrowRightRounded></KeyboardArrowRightRounded>
                                 </td>
                               </tr>
-                            ))}
+                            ))} */}
                         </tbody>
                       </table>
                     </div>

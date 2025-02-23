@@ -59,13 +59,28 @@ const LDhome = () => {
   }, []);
 
   //fetchMockData
+  const [lecturers, setLecturers] = useState([]); // State to store fetched data
+
+  const baseUrl = "https://rkommend-server.onrender.com";
+
+  const apiRequest = async (endpoint, options = {}) => {
+    try {
+      const response = await fetch(`${baseUrl}${endpoint}`, options);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("API Error:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchMockData().then((data) => {
-      setUser(data); // Store fetched data in state
+    // Fetch data when component mounts
+    apiRequest("/api/lecturers").then((data) => {
+      setLecturers(data);
+      console.log(data);
     });
   }, []);
 
-  // Handle click on an in-progress request
   const handleRequestClick = (request) => {
     setSelectedRequest(request);
     setIsSideMenuOpen(!isSideMenuOpen);

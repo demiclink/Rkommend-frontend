@@ -7,7 +7,7 @@ import "../css files/accountType.css";
 
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 
-const LecturerSignin = () => {
+const AdminSignin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,7 +26,7 @@ const LecturerSignin = () => {
 
     try {
       const response = await fetch(
-        "https://rkommend-server.onrender.com/api/lecturers/signin",
+        "https://rkommend-server.onrender.com/api/admins/signin",
         {
           method: "POST",
           headers: {
@@ -39,11 +39,9 @@ const LecturerSignin = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Handle success (e.g., store token, navigate)
         console.log("Logged in successfully:", data);
-        navigate("/home-lecturer"); // Navigate after successful login
+        navigate("/admin-dashboard");
       } else {
-        // Handle errors (e.g., incorrect credentials)
         setError(data.message || "Failed to log in");
       }
     } catch (error) {
@@ -59,7 +57,7 @@ const LecturerSignin = () => {
 
       <div className="main-body">
         <div className="mainbody__container">
-          <SigninFormVector Type={"Lecturer"} />
+          <SigninFormVector Type={"Admin"} />
           <div className="signinForm__div">
             <div className="signinFormHeader">Sign in</div>
             {error && <p className="error-message">{error}</p>}{" "}
@@ -90,11 +88,7 @@ const LecturerSignin = () => {
                 />
               </div>
 
-              <button
-                className="signinForm__btn blue--btn"
-                type="submit"
-                disabled={loading}
-              >
+              <button className="signinForm__btn blue--btn" disabled={loading}>
                 {loading ? "Signing in..." : "Sign In"}
                 <EastRoundedIcon />
               </button>
@@ -107,4 +101,4 @@ const LecturerSignin = () => {
   );
 };
 
-export default LecturerSignin;
+export default AdminSignin;

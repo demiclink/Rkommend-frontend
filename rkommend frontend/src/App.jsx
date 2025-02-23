@@ -13,6 +13,7 @@ import Createrecommedationrequests from "./pages/studentsdashboard/createrecomme
 import LDhome from "./pages/lecturerdashboard/ld-home";
 import Notifications from "./pages/lecturerdashboard/notifications";
 import Admindashboard from "./pages/admindashboard/admin-dashboard";
+import AdminSignin from "./pages/adminsignin";
 
 const App = () => {
   return (
@@ -46,6 +47,7 @@ const App = () => {
           element={<Notifications />}
         />
         <Route path="/admin-dashboard" element={<Admindashboard />} />
+        <Route path="/admin-signin" element={<AdminSignin />} />
       </Routes>
     </main>
   );

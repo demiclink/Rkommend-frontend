@@ -245,7 +245,7 @@
   /* visibility: hidden; */
 }
 
-.side__menu--admin.open {
+.side__menu--admin.opened {
   transform: translateX(0%);
 }
 

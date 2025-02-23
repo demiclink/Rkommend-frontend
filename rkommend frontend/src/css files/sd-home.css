@@ -629,11 +629,13 @@ body {
 .editeducationrecord__form form {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .editeducationrecord__form form div {
   width: 100%;
   display: flex;
+  flex-direction: column;
 }
 
 .editprofiledetails__form input,
@@ -770,10 +772,18 @@ body {
   color: #1b1b1b;
 }
 
-.editprofiledetails__form {
+.editprofiledetails__form form {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.lastName,
+.phoneNum,
+.eMail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .editprofiledetails__form--input {

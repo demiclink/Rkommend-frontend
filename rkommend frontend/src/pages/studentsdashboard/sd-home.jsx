@@ -187,6 +187,28 @@ const SDHome = () => {
     setSelectedRequest(request);
   };
 
+  const [institutions, setInstitutions] = useState([]); // State to store fetched data
+
+  const baseUrl = "https://rkommend-server.onrender.com";
+
+  const apiRequest = async (endpoint, options = {}) => {
+    try {
+      const response = await fetch(`${baseUrl}${endpoint}`, options);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("API Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch data when component mounts
+    apiRequest("/api/institutions").then((data) => {
+      setInstitutions(data); // Set data in state
+      console.log(data);
+    });
+  }, []); // Empty array ensures it runs only on mount
+
   return (
     <div>
       {/* editprofiledetails */}
@@ -228,19 +250,25 @@ const SDHome = () => {
                 </div>
               </div>
 
-              <label htmlFor="lastname">Lastname</label>
-              <input type="text" name="lastname" id="lastname" />
+              <div className="lastName">
+                <label htmlFor="lastname">Lastname</label>
+                <input type="text" name="lastname" id="lastname" />
+              </div>
 
-              <label htmlFor="phonenumber">Phone number</label>
-              <input type="text" name="phonenumber" id="phonenumber" />
+              <div className="phoneNum">
+                <label htmlFor="phonenumber">Phone number</label>
+                <input type="text" name="phonenumber" id="phonenumber" />
+              </div>
 
-              <label htmlFor="email">Email address</label>
-              <input
-                type="text"
-                name="email"
-                id="email"
-                placeholder={user && user.student.email}
-              />
+              <div className="eMail">
+                <label htmlFor="email">Email address</label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder={user && user.student.email}
+                />
+              </div>
             </form>
           </div>
         </div>
@@ -330,9 +358,7 @@ const SDHome = () => {
 
       {/* blackoverlay for edit education div*/}
       <div
-        className={`blackoverlay editeducationrecord ${
-          isEducationRecordOpen ? "visible" : ""
-        }`}
+        className={`blackoverlay  ${isEducationRecordOpen ? "visible" : ""}`}
         onClick={handleOverlayClick}
       ></div>
 
