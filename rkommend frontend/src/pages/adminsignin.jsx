@@ -1,77 +1,45 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SigninFormVector from "../components/signinform";
 import { useNavigate } from "react-router-dom"; // Use useNavigate for navigation
 import { Header, Footer } from "../components/headerandfooter";
 import "../css files/landingPage.css";
 import "../css files/accountType.css";
-
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
-import { signInAsAdmin } from "../lib/api-client";
+import { useAdminSignin } from "../hooks/use-admin-signin";
+import { useAuth } from "../hooks/use-auth";
 
 const AdminSignin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const navigate = useNavigate(); // For programmatic navigation
+  const { setAndPersistAuth } = useAuth()
+  const { 
+    adminSigninError, 
+    adminSigninLoading, 
+    startAdminSignin,
+  } = useAdminSignin({
+    onSuccessCallback: (apiResponse) => {
+      // store auth data in local storage
+      setAndPersistAuth(apiResponse.data)
+      // Navigate to admin dashboard after successful signin
+      navigate("/admin-dashboard")
+    }
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    const credentials = {
-      email,
-      password,
-    };
-
-    //   try {
-    //     const response = await fetch(
-    //       "https://rkommend-server.onrender.com/api/admins/signin",
-    //       {
-    //         method: "POST",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(credentials),
-    //       }
-    //     );
-
-    //     const data = await response.json();
-
-    //     if (response.ok) {
-    //       console.log("Logged in successfully:", data);
-    //       navigate("/admin-dashboard");
-    //     } else {
-    //       setError(data.message || "Failed to log in");
-    //     }
-    //   } catch (error) {
-    //     setError("An error occurred while logging in");
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-    try {
-      await signInAsAdmin(credentials)
-      setLoading(false)
-      await navigate("/admin-dashboard")
-    } catch (error) {
-      setError(error.message || "An error occurred while logging in")
-      setLoading(false)
-    }
+    await startAdminSignin({ email, password });
   }
-
+  
   return (
     <div>
-      <Header></Header>
-
+      <Header />
       <div className="main-body">
         <div className="mainbody__container">
           <SigninFormVector Type={"Admin"} />
           <div className="signinForm__div">
             <div className="signinFormHeader">Sign in</div>
-            {error && <p className="error-message">{error}</p>}{" "}
-            {/* Show error if exists */}
+            {adminSigninError && <p className="error-message">{adminSigninError}</p>}
             <form onSubmit={handleSubmit}>
               <div className="signinForm__emaildiv">
                 <label htmlFor="email"> Email</label>
@@ -98,14 +66,14 @@ const AdminSignin = () => {
                 />
               </div>
 
-              <button className="signinForm__btn blue--btn" disabled={loading}>
-                {loading ? "Signing in..." : "Sign In"}
+              <button className="signinForm__btn blue--btn" disabled={adminSigninLoading}>
+                {adminSigninLoading ? "Signing in..." : "Sign In"}
                 <EastRoundedIcon />
               </button>
             </form>
           </div>
         </div>
-        <Footer></Footer>
+        <Footer />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { BASE_URL } from "../../config";
 
-export const signInAsAdmin = async (body) => {
+export const signinAdmin = async (body) => {
   const res = await fetch(`${BASE_URL}/api/admins/signin`, {
     credentials: 'include',
     method: 'POST',

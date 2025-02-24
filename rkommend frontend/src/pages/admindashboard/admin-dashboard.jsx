@@ -11,9 +11,22 @@ import { KeyboardArrowRightRounded } from "@mui/icons-material";
 import Addinstitutionsidemenu from "../../components/admin-addinstitution";
 import SidemenuAdmin from "../../components/admin-sidemenu";
 import Adminheader from "../../components/adminheader";
+import { useAuth } from "../../hooks/use-auth";
+import { useManyLecturer } from "../../hooks/use-many-lecturer";
+import { useManyInstitution } from "../../hooks/use-many-institution";
 
 const Admindashboard = () => {
-  const [user, setUser] = useState(null);
+  const { getAuth } = useAuth(); // current user
+  const { 
+    manyLecturerError, 
+    manyLecturerLoading, 
+    manyLecturerResponse 
+  } = useManyLecturer()
+  const {
+    fetchManyInstitutionError,
+    fetchManyInstitutionLoading,
+    fetchManyInstitutionResponse
+  } = useManyInstitution()
   const [currentDate, setCurrentDate] = useState("");
   const [page, setPage] = useState("overview");
   const [isSortByOpen, setIsSortByOpen] = useState(false);
@@ -68,29 +81,29 @@ const Admindashboard = () => {
   }, []);
 
   // Fetch data from API
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://rkommend-server.onrender.com/api/lecturers",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-          }
-        );
-        const data = await response.json();
-        setUser(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "https://rkommend-server.onrender.com/api/lecturers",
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //           credentials: "include",
+  //         }
+  //       );
+  //       const data = await response.json();
+  //       setUser(data);
+  //       console.log(data);
+  //     } catch (error) {
+  //       console.error("Error fetching data: ", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   //fetchAdminMockData
   // useEffect(() => {
@@ -98,11 +111,11 @@ const Admindashboard = () => {
   //     setUser(data);
   //   });
   // }, []);
-
+    
   return (
     <>
       <div>
-        <Adminheader></Adminheader>
+        <Adminheader />
         <div
           onClick={toggleBlackOverlayVisible}
           className={`adminblackoverlay ${
@@ -116,7 +129,7 @@ const Admindashboard = () => {
             setIsSideMenuOpen(false);
             setIsBlackOverlayVisible(false);
           }}
-        ></SidemenuAdmin>
+          />
 
         <Addinstitutionsidemenu
           className2={`side__menu--institution ${
@@ -126,7 +139,7 @@ const Admindashboard = () => {
             setIsAddInstitutionOpen(false);
             setIsBlackOverlayVisible(false);
           }}
-        ></Addinstitutionsidemenu>
+        />
         <div className="admin-main-body">
           <div className="admin-navbar__container">
             <div className="admin-navbar">
@@ -155,7 +168,7 @@ const Admindashboard = () => {
               >
                 <AccountBalanceRoundedIcon
                   style={{ width: "20px", height: "20px" }}
-                ></AccountBalanceRoundedIcon>{" "}
+                />
                 Institutions
               </div>
               <div
@@ -166,7 +179,7 @@ const Admindashboard = () => {
               >
                 <LocalLibraryRoundedIcon
                   style={{ width: "20px", height: "20px" }}
-                ></LocalLibraryRoundedIcon>
+                />
                 Lecturers
               </div>
               <div
@@ -177,7 +190,7 @@ const Admindashboard = () => {
               >
                 <AccountCircleRoundedIcon
                   style={{ width: "20px", height: "20px" }}
-                ></AccountCircleRoundedIcon>
+                />
                 Students
               </div>
             </div>
