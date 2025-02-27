@@ -17,16 +17,13 @@ import { useManyInstitution } from "../../hooks/use-many-institution";
 
 const Admindashboard = () => {
   const { getAuth } = useAuth(); // current user
-  const { 
-    manyLecturerError, 
-    manyLecturerLoading, 
-    manyLecturerResponse 
-  } = useManyLecturer()
+  const { manyLecturerError, manyLecturerLoading, manyLecturerResponse } =
+    useManyLecturer();
   const {
     fetchManyInstitutionError,
     fetchManyInstitutionLoading,
-    fetchManyInstitutionResponse
-  } = useManyInstitution()
+    fetchManyInstitutionResponse,
+  } = useManyInstitution();
   const [currentDate, setCurrentDate] = useState("");
   const [page, setPage] = useState("overview");
   const [isSortByOpen, setIsSortByOpen] = useState(false);
@@ -111,7 +108,7 @@ const Admindashboard = () => {
   //     setUser(data);
   //   });
   // }, []);
-    
+
   return (
     <>
       <div>
@@ -129,7 +126,7 @@ const Admindashboard = () => {
             setIsSideMenuOpen(false);
             setIsBlackOverlayVisible(false);
           }}
-          />
+        />
 
         <Addinstitutionsidemenu
           className2={`side__menu--institution ${

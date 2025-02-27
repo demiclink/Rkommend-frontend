@@ -12,25 +12,22 @@ const AdminSignin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); // For programmatic navigation
-  const { setAndPersistAuth } = useAuth()
-  const { 
-    adminSigninError, 
-    adminSigninLoading, 
-    startAdminSignin,
-  } = useAdminSignin({
-    onSuccessCallback: (apiResponse) => {
-      // store auth data in local storage
-      setAndPersistAuth(apiResponse.data)
-      // Navigate to admin dashboard after successful signin
-      navigate("/admin-dashboard")
-    }
-  });
+  const { setAndPersistAuth } = useAuth();
+  const { adminSigninError, adminSigninLoading, startAdminSignin } =
+    useAdminSignin({
+      onSuccessCallback: (apiResponse) => {
+        // store auth data in local storage
+        setAndPersistAuth(apiResponse.data);
+        // Navigate to admin dashboard after successful signin
+        navigate("/admin-dashboard");
+      },
+    });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await startAdminSignin({ email, password });
-  }
-  
+  };
+
   return (
     <div>
       <Header />
@@ -39,7 +36,9 @@ const AdminSignin = () => {
           <SigninFormVector Type={"Admin"} />
           <div className="signinForm__div">
             <div className="signinFormHeader">Sign in</div>
-            {adminSigninError && <p className="error-message">{adminSigninError}</p>}
+            {adminSigninError && (
+              <p className="error-message">{adminSigninError}</p>
+            )}
             <form onSubmit={handleSubmit}>
               <div className="signinForm__emaildiv">
                 <label htmlFor="email"> Email</label>
@@ -66,7 +65,10 @@ const AdminSignin = () => {
                 />
               </div>
 
-              <button className="signinForm__btn blue--btn" disabled={adminSigninLoading}>
+              <button
+                className="signinForm__btn blue--btn"
+                disabled={adminSigninLoading}
+              >
                 {adminSigninLoading ? "Signing in..." : "Sign In"}
                 <EastRoundedIcon />
               </button>
