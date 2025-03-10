@@ -65,7 +65,10 @@ const LDhome = () => {
 
   const apiRequest = async (endpoint, options = {}) => {
     try {
-      const response = await fetch(`${baseUrl}${endpoint}`, options);
+      const response = await fetch(`${baseUrl}${endpoint}`, {
+        options,
+        credentials: "include",
+      });
       const data = await response.json();
       return data;
     } catch (error) {
