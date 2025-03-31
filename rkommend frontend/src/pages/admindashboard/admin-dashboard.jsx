@@ -296,7 +296,7 @@ const Admindashboard = () => {
                       </div>
                       <div className="overview-numbers created-requests">
                         <div className="overview-numbers--header">
-                          CREATED REQUESTS
+                          CREATED REQUESTS ~
                         </div>
                         <div className="overview-numbers--counter">
                           {" "}
