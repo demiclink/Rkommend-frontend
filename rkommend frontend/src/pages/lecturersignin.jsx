@@ -26,7 +26,7 @@ const LecturerSignin = () => {
 
     try {
       const response = await fetch(
-        "https://rkommend-server.onrender.com/api/lecturers/signin",
+        `${import.meta.env.VITE_API_BASE_URL}/api/lecturers/signin`,
         {
           method: "POST",
           headers: {
@@ -39,9 +39,14 @@ const LecturerSignin = () => {
       const data = await response.json();
 
       if (response.ok) {
+        const lecturerId = data.data.id; // Adjust based on actual response structure
+
+        // Store the lecturer ID in localStorage for later use
+        localStorage.setItem("lecturerId", lecturerId);
+
         // Handle success (e.g., store token, navigate)
         console.log("Logged in successfully:", data);
-        navigate("/home-lecturer"); // Navigate after successful login
+        navigate(`/home-lecturer/${lecturerId}`);
       } else {
         // Handle errors (e.g., incorrect credentials)
         setError(data.message || "Failed to log in");

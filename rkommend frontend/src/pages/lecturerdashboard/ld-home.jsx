@@ -60,28 +60,35 @@ const LDhome = () => {
 
   //fetchMockData
   const [lecturers, setLecturers] = useState([]); // State to store fetched data
-
-  const baseUrl = "https://rkommend-server.onrender.com";
-
-  const apiRequest = async (endpoint, options = {}) => {
-    try {
-      const response = await fetch(`${baseUrl}${endpoint}`, {
-        options,
-        credentials: "include",
-      });
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("API Error:", error);
-    }
-  };
-
   useEffect(() => {
-    // Fetch data when component mounts
-    apiRequest("/api/lecturers").then((data) => {
-      setLecturers(data);
-      console.log(data);
-    });
+    const fetchData = async () => {
+      try {
+        const lecturerId = localStorage.getItem("lecturerId");
+
+        if (!lecturerId) {
+          console.error("No lecturer ID found in localStorage");
+          return;
+        }
+
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/lecturers/${lecturerId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        setLecturers(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleRequestClick = (request) => {
@@ -148,7 +155,11 @@ const LDhome = () => {
             <div className="profilediv__details--div">
               <div className="profilediv__details--biodata">
                 <div className="biodata--img"></div>
-                <div className="biodata--name">Prof. Eloisse Motunrayo </div>
+                <div className="biodata--name">
+                  {`${lecturers.data && lecturers.data.title}  ${
+                    lecturers.data && lecturers.data.firstName
+                  } ${lecturers.data && lecturers.data.lastName}`}{" "}
+                </div>
               </div>
               <div
                 className="profilediv__details--availability"
@@ -379,6 +390,11 @@ const LDhome = () => {
 
       <Ldeditprofile
         className={`edit-profile__sidemenu ${isEditDetailsOpen ? "open" : ""}`}
+        close={() => {
+          setIsEditDetailsOpen(false),
+            setIsSideMenuOpen(true),
+            setIsBlackOverlayVisible(false);
+        }}
       ></Ldeditprofile>
     </div>
   );

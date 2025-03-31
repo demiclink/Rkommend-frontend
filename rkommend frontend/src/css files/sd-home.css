@@ -772,7 +772,7 @@ body {
   color: #1b1b1b;
 }
 
-.editprofiledetails__form form {
+.editprofiledetails__form {
   display: flex;
   flex-direction: column;
   gap: 16px;

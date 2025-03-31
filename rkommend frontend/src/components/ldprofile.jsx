@@ -15,10 +15,36 @@ const Ldprofile = ({
   const [user, setUser] = useState(null);
 
   //fetchMockData
+  const [lecturers, setLecturers] = useState([]); // State to store fetched data
   useEffect(() => {
-    fetchMockData().then((data) => {
-      setUser(data); // Store fetched data in state
-    });
+    const fetchData = async () => {
+      try {
+        const lecturerId = localStorage.getItem("lecturerId");
+
+        if (!lecturerId) {
+          console.error("No lecturer ID found in localStorage");
+          return;
+        }
+
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/lecturers/${lecturerId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        setLecturers(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -38,7 +64,13 @@ const Ldprofile = ({
             <div className="profilediv__details--div">
               <div className="profilediv__details--biodata">
                 <div className="biodata--img"></div>
-                <div className="biodata--name">Prof. Eloisse Motunrayo </div>
+                <div className="biodata--name">
+                  {" "}
+                  {/* {console.log(lecturers)} */}
+                  {`${lecturers.data && lecturers.data.title}  ${
+                    lecturers.data && lecturers.data.firstName
+                  } ${lecturers.data && lecturers.data.lastName}`}{" "}
+                </div>
               </div>
               <div
                 className="profilediv__details--availability"
@@ -85,30 +117,30 @@ const Ldprofile = ({
           <div className="ldprofile__details">
             <div className="ldprofile___titleandnames--container">
               <div className="title">
-                Title <p className="p">{user?.student.title}</p>
+                Title <p className="p">{lecturers?.data?.title} </p>
               </div>
               <div className="fName">
-                Firstname <p className="p">{user?.student.firstname}</p>
+                Firstname <p className="p">{lecturers?.data?.firstName} </p>
               </div>
-              <div className="lName">
-                Lastname <p className="p">{user?.student.lastname}</p>
-              </div>
+            </div>
+            <div className="lName">
+              Lastname <p className="p">{lecturers?.data?.lastName} </p>
             </div>
             <div className="phone-number">
               Phone number
-              <p className="p">{user?.student.phonenumber}</p>
+              <p className="p">{lecturers?.data?.phone}</p>
             </div>
             <div className="official-email">
               Official email
-              <p className="p">{user?.student.email}</p>
+              <p className="p">{lecturers?.data?.email}</p>
             </div>
             <div className="institution">
               Institution
-              <p className="p">{user?.student.institution}</p>
+              <p className="p">{lecturers?.data?.institution}</p>
             </div>
             <div className="department">
               Department
-              <p className="p">{user?.student.department}</p>
+              <p className="p">{lecturers?.data?.department}</p>
             </div>
           </div>
           <button className="edit-details" onClick={toggleEditDetails}>

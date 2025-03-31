@@ -102,6 +102,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 100%;
 }
 
 .overview--header {
@@ -209,7 +210,7 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  height: 100%;
+  /* height: 100%; */
 }
 
 .activerequests__table--head th {
@@ -230,25 +231,7 @@
   cursor: pointer;
 }
 
-.side__menu--admin {
-  /* height: 100vh; */
-  top: 0;
-  bottom: 0;
-  width: 400px;
-  background-color: #ffffff;
-  position: fixed;
-  right: 0;
-  z-index: 101;
-  box-sizing: border-box;
-  transform: translateX(100%);
-  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-  /* visibility: hidden; */
-}
-
-.side__menu--admin.opened {
-  transform: translateX(0%);
-}
-
+.side__menu--admin,
 .side__menu--institution {
   /* height: 100vh; */
   top: 0;
@@ -261,10 +244,14 @@
   box-sizing: border-box;
   transform: translateX(100%);
   transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-  /* visibility: hidden; */
+  opacity: 0;
+  visibility: hidden;
 }
 
+.side__menu--admin.open,
 .side__menu--institution.open {
+  opacity: 1;
+  visibility: visible;
   transform: translateX(0%);
 }
 
@@ -374,19 +361,22 @@
   /* flex-direction: column; */
   height: 100%;
   gap: 32px;
+  justify-content: space-between;
+  overflow-y: scroll;
 }
 
 .selectedInstitution__display--placeholder--container {
   background-color: #f6f6f6;
-  height: 100%;
-  width: 430px;
+  /* height: 100%; */
+  width: 350px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #d7d7d7;
+  color: #9b9b9b;
   font-size: 12px;
   font-weight: 500;
   text-align: center;
+  padding: 16px;
 }
 
 .institutions__table--container {
@@ -426,4 +416,194 @@
 .reqdetails__main--btn {
   border-radius: 12px;
   font-weight: 400;
+}
+
+.activerequests__table--body tr:hover,
+.lectreq__table--body:hover {
+  background-color: #deeaf7;
+}
+
+.fullinstdetails {
+  width: 100%;
+}
+
+.selectedInstitution__display--close {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  color: #717171;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 16px 0;
+  cursor: pointer;
+}
+
+.selectedInstitution__display--unideets {
+  background-color: #ffffff;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 12px;
+  gap: 16px;
+  /* width: 100%; */
+}
+
+.unideets__imgandname {
+  display: flex;
+  gap: 8px;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.imgdiv {
+  width: 40px;
+  height: 40px;
+  background-color: #0a66c2;
+  border-radius: 50%;
+}
+
+.namediv {
+  font-weight: 600;
+  font-size: 18px;
+  color: #1b1b1b;
+}
+
+.unideets__texts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.unideets__stateandcountry {
+  display: flex;
+}
+
+.grey {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: start;
+}
+
+.grey p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1b1b1b;
+}
+
+.selectedInstitution__display--deptandlect {
+  display: flex;
+  padding: 16px 0;
+}
+
+.selectedInstitution__display--deptlist {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  gap: 8px;
+}
+
+.heading {
+  display: flex;
+  padding: 0 0 16px 0;
+}
+
+.deptcards {
+  display: flex;
+  gap: 8px;
+}
+
+.deptcard {
+  width: 50%;
+  border-radius: 6px;
+  background-color: #f6f6f6;
+  border: solid 1px #e7e7e7;
+  display: flex;
+  height: 68px;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.deptcard__texts {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+}
+
+.selectedLecturer__display--unideets {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background: linear-gradient(180deg, #deeaf7 0%, #ffffff 100%);
+}
+
+.fulllectdetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lectprofile-div {
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 18px;
+  color: #1b1b1b;
+  font-weight: 600;
+}
+
+.profilediv__details--biodata {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.reqcards {
+  display: flex;
+  flex-direction: column;
+}
+
+.reqcards div {
+  display: flex;
+  gap: 8px;
+}
+
+.reqcard {
+  border-radius: 0;
+  background-color: #ffffff;
+  border: none;
+}
+
+.selectedlecturer__display--deptlist {
+  background: none;
+  padding: 16px 0 0 0;
+}
+
+.blue {
+  border-left: solid 2px #0a66c2;
+}
+
+.green {
+  border-left: solid 2px #1db954;
+}
+
+.yellow {
+  border-left: solid 2px #ffae00;
+}
+
+.black {
+  border-left: solid 2px #000000;
+}
+
+.profilediv__details--div--student {
+  display: flex;
+  flex-direction: column;
 }

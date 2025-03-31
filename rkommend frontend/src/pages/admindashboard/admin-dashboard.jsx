@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { FlashlightOffRounded, LogoutRounded } from "@mui/icons-material";
+import {
+  FlashlightOffRounded,
+  LogoutRounded,
+  SelectAllTwoTone,
+} from "@mui/icons-material";
 import "../../css files/admindashboard.css";
 import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
 import LocalLibraryRoundedIcon from "@mui/icons-material/LocalLibraryRounded";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SortRoundedIcon from "@mui/icons-material/SortRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-// import { fetchAdminMockData } from "../../adminMockData";
+import { fetchAdminMockData } from "../../adminMockData";
 import { KeyboardArrowRightRounded } from "@mui/icons-material";
+import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
 import Addinstitutionsidemenu from "../../components/admin-addinstitution";
 import SidemenuAdmin from "../../components/admin-sidemenu";
 import Adminheader from "../../components/adminheader";
@@ -25,12 +30,28 @@ const Admindashboard = () => {
     fetchManyInstitutionResponse,
   } = useManyInstitution();
   const [currentDate, setCurrentDate] = useState("");
+  const [user, setUser] = useState("");
+  const [lecturers, setLecturers] = useState("");
+  const [institutions, setInstitutions] = useState("");
+  const [students, setStudents] = useState("");
   const [page, setPage] = useState("overview");
   const [isSortByOpen, setIsSortByOpen] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [isBlackOverlayVisible, setIsBlackOverlayVisible] = useState(false);
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [isAddInstitutionOpen, setIsAddInstitutionOpen] = useState(false);
+  const [selectedInstitutionId, setSelectedInstitutionId] = useState(null);
+  const [selectedInstitution, setSelectedInstitution] = useState(null);
+  const [selectedLecturer, setSelectedLecturer] = useState(null);
+  const [selectedLecturerId, setSelectedLecturerId] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedStudentId, setSelectedStudentId] = useState(null);
+  const [availability, setAvailability] = useState(true);
+
+  // toggle availability
+  const toggleAvailability = () => {
+    setAvailability(!availability);
+  };
 
   const handleSelectedRequest = (row) => {
     setSelectedRequest(row);
@@ -38,6 +59,18 @@ const Admindashboard = () => {
 
   const handleSelectedInstitution = (uni) => {
     setSelectedRequest(uni);
+    setSelectedInstitutionId(uni.id);
+    setSelectedInstitution(uni);
+  };
+
+  const handleSelectedLecturer = (lect) => {
+    setSelectedLecturer(lect);
+    setSelectedLecturerId(lect.id);
+  };
+
+  const handleSelectedStudent = (student) => {
+    setSelectedStudent(student);
+    setSelectedStudentId(student.id);
   };
 
   const toggleSortByOpen = () => {
@@ -48,15 +81,14 @@ const Admindashboard = () => {
     setPage(pageName);
   };
 
-  const toggleBlackOverlayVisible = () => {
-    setIsBlackOverlayVisible(!isBlackOverlayVisible);
-    setIsSideMenuOpen(false);
-    toggleAddInstitutionOpen(false);
-  };
+  // const toggleBlackOverlayVisible = () => {
+  //   setIsBlackOverlayVisible(!isBlackOverlayVisible);
+  //   setIsSideMenuOpen(false);
+  //   toggleAddInstitutionOpen(false);
+  // };
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
-    setIsBlackOverlayVisible(!isBlackOverlayVisible);
   };
 
   const toggleAddInstitutionOpen = () => {
@@ -77,35 +109,58 @@ const Admindashboard = () => {
     setCurrentDate(formattedDate);
   }, []);
 
-  // Fetch data from API
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         "https://rkommend-server.onrender.com/api/lecturers",
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           credentials: "include",
-  //         }
-  //       );
-  //       const data = await response.json();
-  //       setUser(data);
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.error("Error fetching data: ", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [lecturersResponse, institutionsResponse, studentsResponse] =
+          await Promise.all([
+            fetch(`${import.meta.env.VITE_API_BASE_URL}/api/lecturers`, {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+            }),
+            fetch(`${import.meta.env.VITE_API_BASE_URL}/api/institutions`, {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+            }),
+            fetch(`${import.meta.env.VITE_API_BASE_URL}/api/students/`, {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+            }),
+          ]);
 
-  //   fetchData();
-  // }, []);
+        const lecturersData = await lecturersResponse.json();
+        const institutionsData = await institutionsResponse.json();
+        const studentsData = await studentsResponse.json();
 
-  //fetchAdminMockData
+        setLecturers(lecturersData);
+        setInstitutions(institutionsData);
+        setStudents(studentsData);
+
+        console.log("Lecturers Data: ", lecturersData);
+        console.log("Institutions Data: ", institutionsData);
+        console.log("Students Data:", studentsData);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // fetchAdminMockData
   // useEffect(() => {
   //   fetchAdminMockData().then((data) => {
   //     setUser(data);
+  //     // console.log(data);
   //   });
   // }, []);
 
@@ -114,14 +169,18 @@ const Admindashboard = () => {
       <div>
         <Adminheader />
         <div
-          onClick={toggleBlackOverlayVisible}
+          onClick={() => {
+            setIsBlackOverlayVisible(false);
+            setIsSideMenuOpen(false);
+            setIsAddInstitutionOpen(false);
+          }}
           className={`adminblackoverlay ${
             isBlackOverlayVisible ? "adminblackoverlay__visible" : ""
           }`}
         ></div>
         <SidemenuAdmin
-          className={`side__menu--admin ${isSideMenuOpen ? "opened" : ""}`}
-          // selectedRequest={selectedRequest}
+          className={`side__menu--admin ${isSideMenuOpen ? "open" : ""}`}
+          selectedRequest={selectedRequest}
           close={() => {
             setIsSideMenuOpen(false);
             setIsBlackOverlayVisible(false);
@@ -214,25 +273,17 @@ const Admindashboard = () => {
                           UNIVERSITIES
                         </div>
                         <div className="overview-numbers--counter">
-                          {/* {console.log(user)} */}
+                          {institutions && institutions.data.length}
                         </div>
                       </div>
-                      <div className="overview-numbers departments">
-                        <div className="overview-numbers--header">
-                          DEPARTMENTS
-                        </div>
-                        <div className="overview-numbers--counter">
-                          {" "}
-                          {/* {user && user.departments.length} */}
-                        </div>
-                      </div>
+
                       <div className="overview-numbers lecturers">
                         <div className="overview-numbers--header">
                           LECTURERS
                         </div>
                         <div className="overview-numbers--counter">
                           {" "}
-                          {/* {user && user.length} */}
+                          {lecturers && lecturers.data.length}
                         </div>
                       </div>
 
@@ -240,7 +291,7 @@ const Admindashboard = () => {
                         <div className="overview-numbers--header">STUDENTS</div>
                         <div className="overview-numbers--counter">
                           {" "}
-                          {/* {user && user.students.length} */}
+                          {students && students.data.length}{" "}
                         </div>
                       </div>
                       <div className="overview-numbers created-requests">
@@ -372,13 +423,13 @@ const Admindashboard = () => {
                         </tr>
                       </thead>
                       <tbody className="activerequests__table--body">
-                        {/* {user &&
+                        {user &&
                           user.activeRequests.map((row) => (
                             <tr
                               key={row.id}
                               onClick={() => {
                                 handleSelectedRequest(row);
-                                toggleBlackOverlayVisible();
+                                setIsBlackOverlayVisible(true);
                                 toggleSideMenu();
                               }}
                             >
@@ -392,7 +443,7 @@ const Admindashboard = () => {
                                 <KeyboardArrowRightRounded></KeyboardArrowRightRounded>
                               </td>
                             </tr>
-                          ))} */}
+                          ))}
                       </tbody>
                     </table>
                   </div>
@@ -493,7 +544,7 @@ const Admindashboard = () => {
                             className="activerequests__header--searchinp"
                             name="activerequests__header--searchinp"
                             id="activerequests__header--searchinp"
-                            placeholder="Search lecturer or student"
+                            placeholder="Search institutions"
                           />
                         </div>
                       </div>
@@ -509,30 +560,612 @@ const Admindashboard = () => {
                           </tr>
                         </thead>
                         <tbody className="activerequests__table--body">
-                          {/* {user &&
-                            user.universities.map((uni) => (
+                          {institutions &&
+                            institutions.data.map((uni, index) => (
                               <tr
                                 key={uni.id}
                                 onClick={() => {
                                   handleSelectedInstitution(uni);
                                   toggleBlackOverlayVisible();
                                 }}
+                                style={{
+                                  backgroundColor:
+                                    selectedInstitutionId === uni.id
+                                      ? "#DEEAF7"
+                                      : "transparent",
+                                }}
                               >
-                                <td>{uni.id}</td>
+                                <td>{index + 1}</td>
                                 <td>{uni.name}</td>
-                                <td>{uni.rank}</td>
+                                <td>{uni.departments.length}</td>
                                 <td>
                                   <KeyboardArrowRightRounded></KeyboardArrowRightRounded>
                                 </td>
                               </tr>
-                            ))} */}
+                            ))}
                         </tbody>
                       </table>
                     </div>
                   </div>{" "}
                   <div className="selectedInstitution__display">
-                    <div className="selectedInstitution__display--placeholder--container">
-                      Selected lecturer’s <br /> details will show up here
+                    <div
+                      className="selectedInstitution__display--placeholder--container"
+                      style={
+                        selectedInstitutionId === null ? { height: "100%" } : {}
+                      }
+                    >
+                      {selectedInstitutionId === null &&
+                        "Selected lecturer’s details will show up here"}
+
+                      {selectedInstitutionId && (
+                        <div className="fullinstdetails">
+                          <div
+                            className="selectedInstitution__display--close"
+                            onClick={() => setSelectedInstitutionId(null)}
+                          >
+                            <KeyboardArrowLeftRoundedIcon></KeyboardArrowLeftRoundedIcon>{" "}
+                            Close
+                          </div>
+                          <div className="selectedInstitution__display--unideets">
+                            <div className="unideets__imgandname">
+                              <div className="imgdiv"></div>
+                              <div className="namediv">
+                                {selectedInstitution.name}
+                              </div>
+                            </div>
+
+                            <div className="unideets__texts">
+                              <div className="unideets__stateandcountry">
+                                <div className="statediv grey">
+                                  <div className="state">State</div>
+                                  <p>{selectedInstitution.state}</p>
+                                </div>
+                                <div className="countrydiv grey">
+                                  <div className="country">Country</div>
+                                  <p> {selectedInstitution.country}</p>
+                                </div>
+                              </div>
+                              <div className="phoneNumber grey">
+                                <div> Official phone number</div>
+                                <p>{selectedInstitution.phone}</p>
+                              </div>
+
+                              <div className="offemail grey">
+                                <div>Official email</div>
+                                <p> {selectedInstitution.email}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="selectedInstitution__display--deptandlect">
+                            <div className="grey">
+                              <div className="department">Departments</div>
+                              <p>{selectedInstitution.departments.length} </p>
+                            </div>
+
+                            <div>
+                              <div className="lecturers">Lecturers</div>
+                              {/* {selectedInstitution.departments.length} */}
+                            </div>
+                          </div>
+                          <div className="selectedInstitution__display--deptlist">
+                            <div className="heading">DEPARTMENTS</div>
+
+                            <div className="deptcards">
+                              {selectedInstitution &&
+                                selectedInstitution.departments.map(
+                                  (depts, index) => (
+                                    <div
+                                      className="deptcard grey"
+                                      key={depts.id}
+                                      onClick={() => {
+                                        handleSelectedInstitution(uni);
+                                        toggleBlackOverlayVisible();
+                                      }}
+                                    >
+                                      <div className="deptcard__texts">
+                                        <p>{depts}</p>X Lecturers
+                                      </div>
+
+                                      <div>
+                                        <KeyboardArrowRightRounded></KeyboardArrowRightRounded>
+                                      </div>
+                                    </div>
+                                  )
+                                )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {page === "lecturers" && (
+              <>
+                {" "}
+                <div className="institutions__container">
+                  <div className="main-content__activerequests">
+                    <div className="activerequests__header--container">
+                      <div className="activerequests__header--title institutions__header--title">
+                        Lecturers
+                      </div>
+                      <div>
+                        <div className="activerequests__header--sortby--container">
+                          <div
+                            className="activerequests__header--sortby"
+                            onClick={toggleSortByOpen}
+                          >
+                            <SortRoundedIcon></SortRoundedIcon> Sort by
+                          </div>
+                          <div
+                            className={`activerequests__header--sortby--menu ${
+                              isSortByOpen ? "visible" : ""
+                            }`}
+                          >
+                            <div className="sortby--menu--container">
+                              <div className="sortby--menu--header">
+                                SORT BY
+                              </div>
+                              <div>
+                                {" "}
+                                <input
+                                  type="radio"
+                                  name="sortby"
+                                  id="institution-name"
+                                />
+                                <label htmlFor="institution-name">
+                                  Institution name
+                                </label>
+                              </div>
+                              <div>
+                                {" "}
+                                <input
+                                  type="radio"
+                                  name="sortby"
+                                  id="dept-num"
+                                />
+                                <label htmlFor="dept-num">
+                                  Number of departments
+                                </label>
+                              </div>
+                            </div>
+                            <div className="order--menu--container">
+                              <div className="order--menu--header">ORDER</div>
+                              <div className="ascanddesc">
+                                <div>
+                                  {" "}
+                                  <input
+                                    type="radio"
+                                    name="order"
+                                    id="descending"
+                                  />
+                                  <label htmlFor="descending">Descending</label>
+                                </div>
+                                <div>
+                                  {" "}
+                                  <input
+                                    type="radio"
+                                    name="order"
+                                    id="ascending"
+                                  />
+                                  <label htmlFor="ascending">Ascending</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="activerequests__header--search">
+                          {" "}
+                          <SearchRoundedIcon />
+                          <input
+                            type="text"
+                            className="activerequests__header--searchinp"
+                            name="activerequests__header--searchinp"
+                            id="activerequests__header--searchinp"
+                            placeholder="Search lecturer or student"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="activerequests__table--container institutions__table--container">
+                      <table className="activerequests__table institutions__table">
+                        <thead className="activerequests__table--head">
+                          <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>University</th>
+                            <th>Department</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody className="activerequests__table--body ">
+                          {lecturers &&
+                            lecturers.data.map((lect, index) => (
+                              <tr
+                                className="lectreq__table--body"
+                                key={lect.id}
+                                onClick={() => {
+                                  handleSelectedLecturer(lect);
+                                  toggleBlackOverlayVisible();
+                                }}
+                                style={{
+                                  backgroundColor:
+                                    selectedLecturerId === lect.id
+                                      ? "#DEEAF7"
+                                      : "transparent",
+                                }}
+                              >
+                                <td>{index + 1}</td>
+                                <td>
+                                  {" "}
+                                  {`${lect && lect.title}  ${
+                                    lect && lect.firstName
+                                  } ${lect && lect.lastName}`}
+                                </td>
+                                <td>{lect.rank}</td>
+                                <td>{lect.department}</td>
+                                <td>
+                                  <KeyboardArrowRightRounded></KeyboardArrowRightRounded>
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>{" "}
+                  <div className="selectedInstitution__display">
+                    <div
+                      className="selectedInstitution__display--placeholder--container"
+                      style={
+                        selectedLecturerId === null ? { height: "100%" } : {}
+                      }
+                    >
+                      {selectedLecturerId === null &&
+                        "Selected lecturer’s details will show up here"}
+
+                      {selectedLecturerId && (
+                        <div className="fullinstdetails fulllectdetails">
+                          <div
+                            className="selectedInstitution__display--close"
+                            onClick={() => setSelectedLecturerId(null)}
+                          >
+                            <KeyboardArrowLeftRoundedIcon></KeyboardArrowLeftRoundedIcon>{" "}
+                            Close
+                          </div>
+                          <div className="ldprofile__heading">PROFILE</div>
+
+                          <div className="profile-div lectprofile-div">
+                            <div className="profilediv__details--div">
+                              <div className="profilediv__details--biodata">
+                                <div className="biodata--img"></div>
+                                <div className="biodata--name">
+                                  {" "}
+                                  {console.log(selectedLecturer)}
+                                  {`${
+                                    selectedLecturer && selectedLecturer.title
+                                  }  ${
+                                    selectedLecturer &&
+                                    selectedLecturer.firstName
+                                  } ${
+                                    selectedLecturer &&
+                                    selectedLecturer.lastName
+                                  }`}{" "}
+                                </div>
+                              </div>
+                              <div
+                                className="profilediv__details--availability"
+                                style={{
+                                  backgroundColor: selectedLecturer.isAvailable
+                                    ? "#1db9544d"
+                                    : "#F6F6F64d",
+                                  border: selectedLecturer.isAvailable
+                                    ? "1px solid #1db954"
+                                    : " 1px solid #e7e7e7",
+                                }}
+                              >
+                                <div
+                                  className="availability--indicator"
+                                  style={{
+                                    backgroundColor: availability
+                                      ? "#1db954"
+                                      : "#717171",
+                                  }}
+                                ></div>
+                                <div
+                                  className="availability--text"
+                                  style={{
+                                    color: availability ? "#1b1b1b" : "#717171",
+                                  }}
+                                >
+                                  {availability ? "AVAILABLE" : "UNAVAILABLE"}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="unideets__texts">
+                            <div className="phoneNumber grey">
+                              <div> Official phone number</div>
+                              <p>{selectedLecturer.phone}</p>
+                            </div>
+
+                            <div className="offemail grey">
+                              <div>Official email</div>
+                              <p> {selectedLecturer.email}</p>
+                            </div>
+
+                            <div className="offemail grey">
+                              <div>Institution</div>
+                              <p> {selectedLecturer.email}</p>
+                            </div>
+
+                            <div className="offemail grey">
+                              <div>Department</div>
+                              <p> {selectedLecturer.department}</p>
+                            </div>
+                          </div>
+
+                          <div className="selectedInstitution__display--deptlist selectedlecturer__display--deptlist">
+                            <div className="heading"> RECOMMENDATIONS</div>
+
+                            <div className="deptcards reqcards">
+                              <div>
+                                <div className="deptcard grey reqcard blue">
+                                  <div className="deptcard__texts">
+                                    Completed
+                                    <p>50</p>
+                                  </div>
+                                </div>
+                                <div className="deptcard grey reqcard green">
+                                  <div className="deptcard__texts">
+                                    In progress
+                                    <p>5</p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div>
+                                <div className="deptcard grey reqcard yellow">
+                                  <div className="deptcard__texts">
+                                    Requests
+                                    <p>50</p>
+                                  </div>
+                                </div>
+                                <div className="deptcard grey reqcard black">
+                                  <div className="deptcard__texts">
+                                    Archived
+                                    <p>5</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {page === "students" && (
+              <>
+                {" "}
+                <div className="institutions__container">
+                  <div className="main-content__activerequests">
+                    <div className="activerequests__header--container">
+                      <div className="activerequests__header--title institutions__header--title">
+                        Students
+                      </div>
+                      <div>
+                        <div className="activerequests__header--sortby--container">
+                          <div
+                            className="activerequests__header--sortby"
+                            onClick={toggleSortByOpen}
+                          >
+                            <SortRoundedIcon></SortRoundedIcon> Sort by
+                          </div>
+                          <div
+                            className={`activerequests__header--sortby--menu ${
+                              isSortByOpen ? "visible" : ""
+                            }`}
+                          >
+                            <div className="sortby--menu--container">
+                              <div className="sortby--menu--header">
+                                SORT BY
+                              </div>
+                              <div>
+                                {" "}
+                                <input
+                                  type="radio"
+                                  name="sortby"
+                                  id="institution-name"
+                                />
+                                <label htmlFor="institution-name">
+                                  Institution name
+                                </label>
+                              </div>
+                              <div>
+                                {" "}
+                                <input
+                                  type="radio"
+                                  name="sortby"
+                                  id="dept-num"
+                                />
+                                <label htmlFor="dept-num">
+                                  Number of departments
+                                </label>
+                              </div>
+                            </div>
+                            <div className="order--menu--container">
+                              <div className="order--menu--header">ORDER</div>
+                              <div className="ascanddesc">
+                                <div>
+                                  {" "}
+                                  <input
+                                    type="radio"
+                                    name="order"
+                                    id="descending"
+                                  />
+                                  <label htmlFor="descending">Descending</label>
+                                </div>
+                                <div>
+                                  {" "}
+                                  <input
+                                    type="radio"
+                                    name="order"
+                                    id="ascending"
+                                  />
+                                  <label htmlFor="ascending">Ascending</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="activerequests__header--search">
+                          {" "}
+                          <SearchRoundedIcon />
+                          <input
+                            type="text"
+                            className="activerequests__header--searchinp"
+                            name="activerequests__header--searchinp"
+                            id="activerequests__header--searchinp"
+                            placeholder="Search lecturer or student"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="activerequests__table--container institutions__table--container">
+                      <table className="activerequests__table institutions__table">
+                        <thead className="activerequests__table--head">
+                          <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Recommendations</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody className="activerequests__table--body">
+                          {students &&
+                            students.data.map((student, index) => (
+                              <tr
+                                key={student.id}
+                                onClick={() => {
+                                  handleSelectedStudent(student);
+                                  toggleBlackOverlayVisible();
+                                }}
+                                style={{
+                                  backgroundColor:
+                                    selectedStudentId === student.id
+                                      ? "#DEEAF7"
+                                      : "transparent",
+                                }}
+                              >
+                                <td>{index + 1}</td>
+
+                                <td>
+                                  {`${student && student.title}  ${
+                                    student && student.firstName
+                                  } ${student && student.lastName}`}
+                                </td>
+                                <td></td>
+                                <td>
+                                  <KeyboardArrowRightRounded></KeyboardArrowRightRounded>
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>{" "}
+                  <div className="selectedInstitution__display">
+                    <div
+                      className="selectedInstitution__display--placeholder--container"
+                      style={
+                        selectedStudentId === null ? { height: "100%" } : {}
+                      }
+                    >
+                      {selectedStudentId === null &&
+                        "Selected lecturer’s details will show up here"}
+
+                      {selectedStudentId && (
+                        <div className="fullinstdetails fulllectdetails">
+                          <div
+                            className="selectedInstitution__display--close"
+                            onClick={() => setSelectedLecturerId(null)}
+                          >
+                            <KeyboardArrowLeftRoundedIcon></KeyboardArrowLeftRoundedIcon>{" "}
+                            Close
+                          </div>
+                          <div className="ldprofile__heading">PROFILE</div>
+
+                          <div className="profile-div lectprofile-div">
+                            <div className="profilediv__details--div">
+                              <div className="profilediv__details--biodata">
+                                <div className="biodata--img"></div>
+                                <div className="biodata--name">
+                                  {" "}
+                                  {console.log(selectedStudent)}
+                                  {`${
+                                    selectedStudent && selectedStudent.title
+                                  }  ${
+                                    selectedStudent && selectedStudent.firstName
+                                  } ${
+                                    selectedStudent && selectedStudent.lastName
+                                  }`}{" "}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="unideets__texts">
+                            <div className="offemail grey">
+                              <div>Official email</div>
+                              <p> {selectedStudent.email}</p>
+                            </div>
+                            <div className="phoneNumber grey">
+                              <div> Official phone number</div>
+                              <p>{selectedStudent.phone}</p>
+                            </div>
+                          </div>
+
+                          <div className="selectedInstitution__display--deptlist selectedlecturer__display--deptlist">
+                            <div className="heading"> RECOMMENDATIONS</div>
+
+                            <div className="deptcards reqcards">
+                              <div>
+                                <div className="deptcard grey reqcard blue">
+                                  <div className="deptcard__texts">
+                                    Completed
+                                    <p>50</p>
+                                  </div>
+                                </div>
+                                <div className="deptcard grey reqcard green">
+                                  <div className="deptcard__texts">
+                                    In progress
+                                    <p>5</p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div>
+                                <div className="deptcard grey reqcard yellow">
+                                  <div className="deptcard__texts">
+                                    Requests
+                                    <p>50</p>
+                                  </div>
+                                </div>
+                                <div className="deptcard grey reqcard black">
+                                  <div className="deptcard__texts">
+                                    Archived
+                                    <p>5</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

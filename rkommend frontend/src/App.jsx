@@ -43,7 +43,7 @@ const App = () => {
             path="/createrecommendationrequests"
             element={<Createrecommedationrequests />}
           />
-          <Route path="/home-lecturer" element={<LDhome />} />
+          <Route path="/home-lecturer/:lecturerId" element={<LDhome />} />
           <Route
             path="/home-lecturer-notifications"
             element={<Notifications />}
